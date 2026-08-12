@@ -31,28 +31,41 @@
       font-size: 20px;
     }
 
+    .viewer-box {
+      position: relative;
+      padding: 15px;
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 480px;
+      background-color: #eef2f5;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
     .ar-card {
-      width: 185px;
+      width: 175px;
       padding: 10px 12px;
       border: 2px solid rgba(0, 140, 186, 0.85);
       border-radius: 14px;
-      background-color: rgba(255, 255, 255, 0.86);
+      background-color: rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
       text-align: center;
       transform: translate(-50%, -50%);
     }
 
     .ar-card img {
-      width: 92px;
+      width: 86px;
       height: auto;
       display: block;
       margin: 0 auto 6px auto;
       border-radius: 6px;
     }
 
-    .ar-card .text-main {
+    .text-main {
       color: #008CBA;
       font-size: 14px;
       font-weight: 800;
@@ -60,11 +73,11 @@
       margin-bottom: 6px;
     }
 
-    .ar-card .text-sub {
+    .text-sub {
       color: #d9534f;
       font-size: 12px;
       font-weight: 800;
-      background-color: rgba(255, 240, 240, 0.92);
+      background-color: rgba(255, 240, 240, 0.95);
       padding: 6px;
       border-radius: 8px;
       border: 1px dashed #d9534f;
@@ -84,6 +97,11 @@
     }
 
     .ar-button {
+      position: absolute;
+      left: 50%;
+      bottom: 38px;
+      transform: translateX(-50%);
+      z-index: 20;
       background-color: #25D366;
       color: white;
       border: none;
@@ -92,16 +110,12 @@
       font-size: 15px;
       font-weight: bold;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      position: absolute;
-      bottom: 25px;
-      left: 50%;
-      transform: translateX(-50%);
       cursor: pointer;
       white-space: nowrap;
     }
 
     .audio-status {
-      margin: 8px 0 0;
+      margin: 8px 15px 0;
       color: #667;
       font-size: 13px;
       min-height: 18px;
@@ -115,12 +129,9 @@
     <p style="margin:5px 0 0; font-size:13px;">Guía Espacial de Llegada</p>
   </header>
 
-  <!-- Audio con el nombre exacto que tienes en tu carpeta -->
-  <audio id="audioBienvenida" preload="auto" playsinline>
-    <source src="bienvenida.mp3.mp4" type="audio/mp4">
-  </audio>
+  <audio id="audioBienvenida" src="bienvenida.mp4" preload="auto"></audio>
 
-  <div style="padding: 15px;">
+  <div class="viewer-box">
     <model-viewer
       id="modelViewer"
       src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
@@ -131,8 +142,7 @@
       auto-rotate
       shadow-intensity="1"
       camera-orbit="25deg 75deg 3.1m"
-      field-of-view="30deg"
-      style="width: 100%; height: 480px; background-color: #eef2f5; border-radius: 15px;">
+      field-of-view="30deg">
 
       <div
         slot="hotspot-cartel"
@@ -149,39 +159,63 @@
           🔊 Escuchar Mensaje
         </button>
       </div>
-
-      <button id="arBtn" slot="ar-button" class="ar-button" type="button">
-        📱 VER EN MI ESPACIO (AR)
-      </button>
     </model-viewer>
+
+    <button id="arBtn" class="ar-button" type="button">
+      📱 VER EN MI ESPACIO (AR)
+    </button>
 
     <p id="audioStatus" class="audio-status"></p>
   </div>
 
   <script>
+    const modelViewer = document.getElementById("modelViewer");
     const audio = document.getElementById("audioBienvenida");
     const arBtn = document.getElementById("arBtn");
     const audioBtn = document.getElementById("audioBtn");
     const audioStatus = document.getElementById("audioStatus");
 
-    async function reproducirAudio() {
-      try {
-        audio.pause();
-        audio.currentTime = 0;
-        audio.volume = 1;
-        await audio.play();
-        audioStatus.textContent = "Audio reproduciéndose...";
-      } catch (error) {
-        audioStatus.textContent = "El celular bloqueó el audio. Toca 'Escuchar Mensaje'.";
-        console.log("Error al reproducir audio:", error);
+    function reproducirAudio() {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.volume = 1;
+
+      const intento = audio.play();
+
+      if (intento !== undefined) {
+        intento
+          .then(() => {
+            audioStatus.textContent = "Audio reproduciéndose...";
+          })
+          .catch((error) => {
+            audioStatus.textContent = "No se pudo reproducir. Toca Escuchar Mensaje.";
+            console.log("Error de audio:", error);
+          });
       }
     }
 
-    audioBtn.addEventListener("click", reproducirAudio);
+    audioBtn.addEventListener("click", function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      reproducirAudio();
+    });
 
-    arBtn.addEventListener("pointerdown", reproducirAudio);
-    arBtn.addEventListener("touchstart", reproducirAudio, { passive: true });
-    arBtn.addEventListener("click", reproducirAudio);
+    arBtn.addEventListener("click", function() {
+      reproducirAudio();
+
+      setTimeout(function() {
+        if (modelViewer && modelViewer.activateAR) {
+          modelViewer.activateAR();
+        } else {
+          audioStatus.textContent = "AR aún no está listo. Espera un segundo y vuelve a tocar.";
+        }
+      }, 250);
+    });
+
+    audio.addEventListener("error", function() {
+      audioStatus.textContent = "No se pudo leer bienvenida.mp4.";
+      console.log("Audio error code:", audio.error);
+    });
   </script>
 </body>
 </html>
