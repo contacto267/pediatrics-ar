@@ -12,18 +12,16 @@
 
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f7f6;
+      font-family: Arial, sans-serif;
+      background: #f4f7f6;
       text-align: center;
       color: #333;
     }
 
     header {
-      background-color: #008CBA;
+      background: #008CBA;
       color: white;
       padding: 15px 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
     h1 {
@@ -39,7 +37,7 @@
     model-viewer {
       width: 100%;
       height: 480px;
-      background-color: #eef2f5;
+      background: #eef2f5;
       border-radius: 15px;
       overflow: hidden;
     }
@@ -49,9 +47,7 @@
       padding: 10px 12px;
       border: 2px solid rgba(0, 140, 186, 0.85);
       border-radius: 14px;
-      background-color: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.88);
       box-shadow: 0 8px 20px rgba(0,0,0,0.25);
       text-align: center;
       transform: translate(-50%, -50%);
@@ -59,9 +55,8 @@
 
     .ar-card img {
       width: 86px;
-      height: auto;
       display: block;
-      margin: 0 auto 6px auto;
+      margin: 0 auto 6px;
       border-radius: 6px;
     }
 
@@ -69,7 +64,6 @@
       color: #008CBA;
       font-size: 14px;
       font-weight: 800;
-      line-height: 1.15;
       margin-bottom: 6px;
     }
 
@@ -77,14 +71,14 @@
       color: #d9534f;
       font-size: 12px;
       font-weight: 800;
-      background-color: rgba(255, 240, 240, 0.95);
+      background: #fff0f0;
       padding: 6px;
       border-radius: 8px;
       border: 1px dashed #d9534f;
     }
 
     .audio-btn {
-      background-color: #ff9800;
+      background: #ff9800;
       color: white;
       border: none;
       border-radius: 20px;
@@ -93,7 +87,6 @@
       font-weight: bold;
       margin-top: 8px;
       cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     .ar-button {
@@ -102,7 +95,7 @@
       bottom: 38px;
       transform: translateX(-50%);
       z-index: 20;
-      background-color: #25D366;
+      background: #25D366;
       color: white;
       border: none;
       border-radius: 30px;
@@ -116,9 +109,31 @@
 
     .audio-status {
       margin: 8px 15px 0;
-      color: #667;
+      color: #555;
       font-size: 13px;
       min-height: 18px;
+    }
+
+    .test-audio {
+      margin: 10px 15px;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 20px;
+      background: #008CBA;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Queda casi invisible, pero cargado como video real */
+    #mediaBienvenida {
+      position: fixed;
+      width: 1px;
+      height: 1px;
+      opacity: 0.01;
+      pointer-events: none;
+      left: 0;
+      bottom: 0;
     }
   </style>
 </head>
@@ -129,7 +144,12 @@
     <p style="margin:5px 0 0; font-size:13px;">Guía Espacial de Llegada</p>
   </header>
 
-  <audio id="audioBienvenida" src="bienvenida.mp4" preload="auto"></audio>
+  <!-- IMPORTANTE: como tu archivo es MP4, lo usamos como video -->
+  <video id="mediaBienvenida" src="bienvenida.mp4" preload="auto" playsinline></video>
+
+  <button id="testAudioBtn" class="test-audio" type="button">
+    🔊 PROBAR AUDIO
+  </button>
 
   <div class="viewer-box">
     <model-viewer
@@ -170,29 +190,32 @@
 
   <script>
     const modelViewer = document.getElementById("modelViewer");
-    const audio = document.getElementById("audioBienvenida");
+    const media = document.getElementById("mediaBienvenida");
     const arBtn = document.getElementById("arBtn");
     const audioBtn = document.getElementById("audioBtn");
+    const testAudioBtn = document.getElementById("testAudioBtn");
     const audioStatus = document.getElementById("audioStatus");
 
-    function reproducirAudio() {
-      audio.pause();
-      audio.currentTime = 0;
-      audio.volume = 1;
+    async function reproducirAudio() {
+      try {
+        media.pause();
+        media.currentTime = 0;
+        media.muted = false;
+        media.volume = 1;
 
-      const intento = audio.play();
+        await media.play();
 
-      if (intento !== undefined) {
-        intento
-          .then(() => {
-            audioStatus.textContent = "Audio reproduciéndose...";
-          })
-          .catch((error) => {
-            audioStatus.textContent = "No se pudo reproducir. Toca Escuchar Mensaje.";
-            console.log("Error de audio:", error);
-          });
+        audioStatus.textContent = "Audio reproduciéndose...";
+        return true;
+      } catch (error) {
+        audioStatus.textContent = "No se pudo reproducir el audio. Revisa el formato del MP4.";
+        console.log("Error de audio:", error);
+        console.log("Ruta usada:", media.currentSrc);
+        return false;
       }
     }
+
+    testAudioBtn.addEventListener("click", reproducirAudio);
 
     audioBtn.addEventListener("click", function(event) {
       event.preventDefault();
@@ -200,21 +223,26 @@
       reproducirAudio();
     });
 
-    arBtn.addEventListener("click", function() {
-      reproducirAudio();
+    arBtn.addEventListener("click", async function() {
+      await reproducirAudio();
 
       setTimeout(function() {
         if (modelViewer && modelViewer.activateAR) {
           modelViewer.activateAR();
         } else {
-          audioStatus.textContent = "AR aún no está listo. Espera un segundo y vuelve a tocar.";
+          audioStatus.textContent = "AR todavía no está listo.";
         }
-      }, 250);
+      }, 700);
     });
 
-    audio.addEventListener("error", function() {
-      audioStatus.textContent = "No se pudo leer bienvenida.mp4.";
-      console.log("Audio error code:", audio.error);
+    media.addEventListener("loadeddata", function() {
+      audioStatus.textContent = "Audio cargado correctamente.";
+    });
+
+    media.addEventListener("error", function() {
+      audioStatus.textContent = "No se encontró o no se pudo leer bienvenida.mp4.";
+      console.log("Error media:", media.error);
+      console.log("Ruta:", media.currentSrc);
     });
   </script>
 </body>
