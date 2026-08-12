@@ -24,18 +24,37 @@
 
     h1 { margin: 0; font-size: 20px; }
 
-    /* Estilo del Cartel Flotante AR */
+    /* Cartel 3D nítido, sin opacidad y sobre la cabeza */
     .ar-card {
-      background: rgba(255, 255, 255, 0.95);
+      background: #ffffff !important; /* Blanco 100% opaco */
       border: 3px solid #008CBA;
-      border-radius: 12px;
-      padding: 10px 15px;
+      border-radius: 14px;
+      padding: 12px 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      text-align: center;
+      min-width: 200px;
+      z-index: 9999;
+    }
+
+    .ar-card img {
+      width: 140px;
+      height: auto;
+      display: block;
+      margin: 0 auto 8px auto;
+    }
+
+    .ar-card .text-main {
+      color: #008CBA;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 1.3;
+    }
+
+    .ar-card .text-sub {
+      color: #e74c3c;
       font-size: 14px;
       font-weight: bold;
-      color: #008CBA;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      text-align: center;
-      pointer-events: none;
+      margin-top: 4px;
     }
 
     .ar-button {
@@ -71,10 +90,12 @@
       shadow-intensity="1"
       style="width: 100%; height: 450px; background-color: #eef2f5; border-radius: 15px;">
       
-      <!-- Cartel 3D Flotante anclado al astronauta -->
-      <div slot="hotspot-cartel" class="ar-card" data-position="0 1.8 0" data-normal="0 1 0">
-        🩺 <strong>Pediatrics Home Peru</strong><br>
-        👇 ¡Tocar Intercomunicador 102!
+      <!-- Cartel posicionado más arriba de la cabeza (0 2.2 0) -->
+      <div slot="hotspot-cartel" class="ar-card" data-position="0 2.2 0" data-normal="0 1 0">
+        <!-- Logo de Pediatrics Home Peru incorporado -->
+        <img src="https://raw.githubusercontent.com/contacto267/pediatrics-ar/main/logo.jpg" alt="Logo Pediatrics Home Peru" onerror="this.style.display='none'">
+        <div class="text-main">Pediatrics Home Peru</div>
+        <div class="text-sub">👇 ¡Tocar Intercomunicador 102!</div>
       </div>
 
       <button slot="ar-button" class="ar-button">
