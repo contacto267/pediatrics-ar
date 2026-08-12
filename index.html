@@ -73,7 +73,23 @@
       border: 1px dashed #d9534f;
     }
 
-    /* Botón flotante */
+    /* Botón reproductor de audio */
+    .audio-btn {
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-top: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Botón flotante AR */
     .ar-button {
       background-color: #25D366;
       color: white;
@@ -98,6 +114,9 @@
     <p style="margin:5px 0 0; font-size:13px;">Guía Espacial de Llegada</p>
   </header>
 
+  <!-- Audio oculto -->
+  <audio id="audioBienvenida" src="bienvenida.mp3" preload="auto"></audio>
+
   <div style="padding: 15px;">
     <model-viewer 
       src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
@@ -109,14 +128,19 @@
       shadow-intensity="1"
       style="width: 100%; height: 480px; background-color: #eef2f5; border-radius: 15px;">
       
-      <!-- Cartel posicionado a la DERECHA del astronauta (1.2 1.2 0) -->
+      <!-- Cartel posicionado a la DERECHA del astronauta -->
       <div slot="hotspot-cartel" class="ar-card" data-position="1.2 1.2 0" data-normal="0 0 1">
         <img src="logo.jpeg" alt="Pediatrics Home Peru Logo">
         <div class="text-main">Pediatrics Home Peru</div>
         <div class="text-sub">👈 ¡Tocar Intercomunicador 102!</div>
+        
+        <!-- Botón para escuchar el saludo -->
+        <button class="audio-btn" onclick="document.getElementById('audioBienvenida').play()">
+          🔊 Escuchar Mensaje
+        </button>
       </div>
 
-      <button slot="ar-button" class="ar-button">
+      <button slot="ar-button" class="ar-button" onclick="document.getElementById('audioBienvenida').play()">
         📱 VER EN MI ESPACIO (AR)
       </button>
 
