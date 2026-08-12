@@ -1,178 +1,125 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>khipuX | Control tributario</title>
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <main id="login" class="login-shell">
-      <section class="login-panel">
-        <div class="brand-mark">
-          <span class="brand-word">khipu</span><span class="brand-x">X</span>
-        </div>
-        <p class="login-copy">Control tributario inteligente para MEDFOUR-V S.A.C.</p>
-        <form id="loginForm" class="login-form">
-          <label>
-            Usuario
-            <input id="username" type="text" value="admin" autocomplete="username" />
-          </label>
-          <label>
-            Password / Contrasena
-            <input id="password" type="password" value="khipux" autocomplete="current-password" />
-          </label>
-          <button type="submit">Ingresar</button>
-        </form>
-        <footer id="loginFooter"></footer>
-      </section>
-    </main>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pediatrics Home Peru - Realidad Aumentada</title>
+  
+  <!-- Carga la librería de WebAR de Google -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
-    <main id="app" class="app-shell hidden">
-      <aside class="sidebar">
-        <div class="brand-mark compact">
-          <span class="brand-word">khipu</span><span class="brand-x">X</span>
-        </div>
-        <nav>
-          <button class="nav-btn active" data-view="dashboard">Dashboard</button>
-          <button class="nav-btn" data-view="ventas">Ventas CSV</button>
-          <button class="nav-btn" data-view="compras">Compras</button>
-          <button class="nav-btn" data-view="sire">Compras SIRE</button>
-          <button class="nav-btn" data-view="comparador">Comparador</button>
-          <button class="nav-btn" data-view="declaracion">Declaracion</button>
-          <button class="nav-btn" data-view="pago">Guia de pago</button>
-          <button class="nav-btn" data-view="libros">Libros</button>
-          <button class="nav-btn" data-view="config">Configuracion</button>
-        </nav>
-      </aside>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7f6;
+      text-align: center;
+      color: #333;
+    }
 
-      <section class="workspace">
-        <header class="topbar">
-          <div>
-            <p class="eyebrow">MEDFOUR-V S.A.C. · RUC 20602771041</p>
-            <h1 id="viewTitle">Dashboard</h1>
-          </div>
-          <div class="period-pill">Periodo: <strong id="currentPeriod">2026-07</strong></div>
-        </header>
+    header {
+      background-color: #008CBA;
+      color: white;
+      padding: 15px 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
 
-        <section id="dashboard" class="view active-view">
-          <div class="kpi-grid">
-            <article class="kpi"><span>Ventas validas</span><strong id="kpiVentas">S/0.00</strong></article>
-            <article class="kpi"><span>IGV ventas</span><strong id="kpiIgvVentas">S/0.00</strong></article>
-            <article class="kpi"><span>IGV compras</span><strong id="kpiIgvCompras">S/0.00</strong></article>
-            <article class="kpi due"><span>Total estimado</span><strong id="kpiTotal">S/0.00</strong></article>
-          </div>
-          <div class="panel-grid">
-            <section class="panel">
-              <h2>Estado mensual</h2>
-              <div id="monthlyStatus" class="status-list"></div>
-            </section>
-            <section class="panel">
-              <h2>Proximo paso</h2>
-              <p id="nextStep" class="next-step"></p>
-            </section>
-          </div>
-        </section>
+    h1 {
+      margin: 0;
+      font-size: 20px;
+    }
 
-        <section id="ventas" class="view">
-          <div class="panel">
-            <div class="panel-head">
-              <div>
-                <h2>Ventas importadas</h2>
-                <p>Pega CSV del sistema de boletas o carga un archivo.</p>
-              </div>
-              <label class="file-btn">
-                Cargar CSV
-                <input id="salesFile" type="file" accept=".csv,text/csv" />
-              </label>
-            </div>
-            <textarea id="salesCsv" class="csv-box" spellcheck="false"></textarea>
-            <div class="actions">
-              <button id="loadSampleSales">Usar ejemplo julio</button>
-              <button id="importSales" class="primary">Importar ventas</button>
-            </div>
-            <div class="table-wrap"><table id="salesTable"></table></div>
-          </div>
-        </section>
+    p.subtitle {
+      margin: 5px 0 0 0;
+      font-size: 13px;
+      opacity: 0.9;
+    }
 
-        <section id="compras" class="view">
-          <div class="panel">
-            <div class="panel-head">
-              <div>
-                <h2>Compras manuales</h2>
-                <p>Factura con credito fiscal, gastos internos y RHE.</p>
-              </div>
-              <button id="addPurchase" class="primary">Agregar compra</button>
-            </div>
-            <div id="purchaseForm" class="form-grid"></div>
-            <div class="table-wrap"><table id="purchaseTable"></table></div>
-          </div>
-        </section>
+    .container {
+      padding: 15px;
+    }
 
-        <section id="sire" class="view">
-          <div class="panel">
-            <div class="panel-head">
-              <div>
-                <h2>SIRE Compras Importado</h2>
-                <p>Primero descarga el RCE/SIRE desde SUNAT y pegalo aqui.</p>
-              </div>
-              <button id="loadSampleSire">Factura SIRE de prueba</button>
-            </div>
-            <textarea id="sireCsv" class="csv-box" spellcheck="false"></textarea>
-            <div class="actions">
-              <button id="importSire" class="primary">Importar SIRE</button>
-            </div>
-            <div class="table-wrap"><table id="sireTable"></table></div>
-          </div>
-        </section>
+    .instructions {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      font-size: 14px;
+      line-height: 1.4;
+      border-left: 5px solid #008CBA;
+      text-align: left;
+    }
 
-        <section id="comparador" class="view">
-          <div class="panel">
-            <h2>Comparador SIRE vs khipuX</h2>
-            <div class="table-wrap"><table id="compareTable"></table></div>
-          </div>
-        </section>
+    /* Visor AR */
+    model-viewer {
+      width: 100%;
+      height: 400px;
+      background-color: #eef2f5;
+      border-radius: 15px;
+      overflow: hidden;
+    }
 
-        <section id="declaracion" class="view">
-          <div class="panel">
-            <h2>Declaracion mensual preliminar</h2>
-            <div class="table-wrap"><table id="declarationTable"></table></div>
-          </div>
-        </section>
+    /* Botón flotante de Realidad Aumentada */
+    .ar-button {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 14px 24px;
+      font-size: 15px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 
-        <section id="pago" class="view">
-          <div class="panel">
-            <h2>Guia de pago mensual</h2>
-            <div class="table-wrap"><table id="paymentTable"></table></div>
-          </div>
-        </section>
+    footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
 
-        <section id="libros" class="view">
-          <div class="panel">
-            <h2>Libros</h2>
-            <div class="book-grid">
-              <article><strong>Registro de Ventas</strong><span id="bookSales"></span></article>
-              <article><strong>Registro de Compras</strong><span id="bookPurchases"></span></article>
-              <article><strong>Diario Simplificado</strong><span>Borrador automatico segun resumen mensual.</span></article>
-            </div>
-          </div>
-        </section>
+  <header>
+    <h1>Pediatrics Home Peru 🩺</h1>
+    <p class="subtitle">Guía de Llegada en Realidad Aumentada</p>
+  </header>
 
-        <section id="config" class="view">
-          <div class="panel">
-            <h2>Configuracion tributaria dinamica</h2>
-            <div class="form-grid config-grid">
-              <label>Tipo contribuyente<select id="companyType"></select></label>
-              <label>Regimen<select id="taxRegime"></select></label>
-              <label>Periodo<input id="periodInput" value="2026-07" /></label>
-              <label>RUC<input id="rucInput" value="20602771041" /></label>
-            </div>
-            <div class="table-wrap"><table id="rulesTable"></table></div>
-          </div>
-        </section>
-      </section>
-    </main>
+  <div class="container">
+    <div class="instructions">
+      👉 <strong>Instrucciones:</strong><br>
+      1. Presiona el botón <strong>"VER CARTEL EN MI ESPACIO (AR)"</strong>.<br>
+      2. Apunta la cámara de tu celular hacia el piso o la puerta de entrada.<br>
+      3. Verás la señal que te indica presionar el <strong>Intercomunicador 102</strong>.
+    </div>
 
-    <script src="./app.js"></script>
-  </body>
+    <!-- Modelo 3D de prueba directo de Google -->
+    <model-viewer 
+      src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+      alt="Señal de Pediatrics Home Peru" 
+      ar 
+      ar-modes="webxr scene-viewer quick-look" 
+      camera-controls 
+      auto-rotate 
+      shadow-intensity="1">
+      
+      <button slot="ar-button" class="ar-button">
+        📱 VER CARTEL EN MI ESPACIO (AR)
+      </button>
+
+    </model-viewer>
+
+    <footer>
+      <p>© Pediatrics Home Peru - Atención Pediátrica</p>
+    </footer>
+  </div>
+
+</body>
 </html>
