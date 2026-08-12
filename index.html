@@ -87,6 +87,7 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     /* Botón flotante AR */
@@ -114,8 +115,11 @@
     <p style="margin:5px 0 0; font-size:13px;">Guía Espacial de Llegada</p>
   </header>
 
-  <!-- Audio oculto -->
-  <audio id="audioBienvenida" src="bienvenida.mp3" preload="auto"></audio>
+  <!-- Audio de bienvenida -->
+  <audio id="audioBienvenida" preload="auto">
+    <source src="bienvenida.mp3" type="audio/mpeg">
+    <source src="bienvenida.m4a" type="audio/mp4">
+  </audio>
 
   <div style="padding: 15px;">
     <model-viewer 
@@ -134,18 +138,29 @@
         <div class="text-main">Pediatrics Home Peru</div>
         <div class="text-sub">👈 ¡Tocar Intercomunicador 102!</div>
         
-        <!-- Botón para escuchar el saludo -->
-        <button class="audio-btn" onclick="document.getElementById('audioBienvenida').play()">
+        <!-- Botón manual para escuchar el saludo -->
+        <button class="audio-btn" onclick="reproducirAudio()">
           🔊 Escuchar Mensaje
         </button>
       </div>
 
-      <button slot="ar-button" class="ar-button" onclick="document.getElementById('audioBienvenida').play()">
+      <button slot="ar-button" class="ar-button" onclick="reproducirAudio()">
         📱 VER EN MI ESPACIO (AR)
       </button>
 
     </model-viewer>
   </div>
+
+  <script>
+    function reproducirAudio() {
+      var audio = document.getElementById('audioBienvenida');
+      if (audio) {
+        audio.play().catch(function(e) {
+          console.log("Error al reproducir audio:", e);
+        });
+      }
+    }
+  </script>
 
 </body>
 </html>
