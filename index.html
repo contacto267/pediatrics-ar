@@ -4,14 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pediatrics Home Peru - Realidad Aumentada</title>
-  
-  <!-- Carga la librería oficial de WebAR de Google -->
+
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -29,74 +26,69 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    h1 { 
-      margin: 0; 
-      font-size: 20px; 
+    h1 {
+      margin: 0;
+      font-size: 20px;
     }
 
-    /* Tarjeta 3D limpia a un costado */
     .ar-card {
-      background-color: #ffffff !important;
-      border: 3px solid #008CBA;
-      border-radius: 16px;
-      padding: 12px 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+      width: 185px;
+      padding: 10px 12px;
+      border: 2px solid rgba(0, 140, 186, 0.85);
+      border-radius: 14px;
+      background-color: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
       text-align: center;
-      width: 220px;
-      opacity: 1 !important;
       transform: translate(-50%, -50%);
     }
 
     .ar-card img {
-      width: 140px;
+      width: 92px;
       height: auto;
       display: block;
-      margin: 0 auto 8px auto;
+      margin: 0 auto 6px auto;
       border-radius: 6px;
     }
 
     .ar-card .text-main {
       color: #008CBA;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
-      line-height: 1.2;
+      line-height: 1.15;
       margin-bottom: 6px;
     }
 
     .ar-card .text-sub {
       color: #d9534f;
-      font-size: 13px;
-      font-weight: 700;
-      background-color: #fff0f0;
+      font-size: 12px;
+      font-weight: 800;
+      background-color: rgba(255, 240, 240, 0.92);
       padding: 6px;
       border-radius: 8px;
       border: 1px dashed #d9534f;
     }
 
-    /* Botón reproductor de audio */
     .audio-btn {
       background-color: #ff9800;
       color: white;
       border: none;
       border-radius: 20px;
-      padding: 8px 14px;
+      padding: 8px 12px;
       font-size: 12px;
       font-weight: bold;
       margin-top: 8px;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
-    /* Botón flotante AR */
     .ar-button {
       background-color: #25D366;
       color: white;
       border: none;
       border-radius: 30px;
-      padding: 14px 26px;
+      padding: 14px 24px;
       font-size: 15px;
       font-weight: bold;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -105,62 +97,91 @@
       left: 50%;
       transform: translateX(-50%);
       cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .audio-status {
+      margin: 8px 0 0;
+      color: #667;
+      font-size: 13px;
+      min-height: 18px;
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>
     <h1>Pediatrics Home Peru 🩺</h1>
     <p style="margin:5px 0 0; font-size:13px;">Guía Espacial de Llegada</p>
   </header>
 
-  <!-- Audio de bienvenida -->
-  <audio id="audioBienvenida" preload="auto">
-    <source src="bienvenida.mp3" type="audio/mpeg">
-    <source src="bienvenida.m4a" type="audio/mp4">
+  <!-- Audio con el nombre exacto que tienes en tu carpeta -->
+  <audio id="audioBienvenida" preload="auto" playsinline>
+    <source src="bienvenida.mp3.mp4" type="audio/mp4">
   </audio>
 
   <div style="padding: 15px;">
-    <model-viewer 
-      src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
-      alt="Astronauta Pediatrics Home Peru" 
-      ar 
-      ar-modes="webxr scene-viewer quick-look" 
-      camera-controls 
-      auto-rotate 
+    <model-viewer
+      id="modelViewer"
+      src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+      alt="Astronauta Pediatrics Home Peru"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      camera-controls
+      auto-rotate
       shadow-intensity="1"
+      camera-orbit="25deg 75deg 3.1m"
+      field-of-view="30deg"
       style="width: 100%; height: 480px; background-color: #eef2f5; border-radius: 15px;">
-      
-      <!-- Cartel posicionado a la DERECHA del astronauta -->
-      <div slot="hotspot-cartel" class="ar-card" data-position="1.2 1.2 0" data-normal="0 0 1">
+
+      <div
+        slot="hotspot-cartel"
+        class="ar-card"
+        data-position="1.35 1.25 0"
+        data-normal="0 0 1">
+
         <img src="logo.jpeg" alt="Pediatrics Home Peru Logo">
+
         <div class="text-main">Pediatrics Home Peru</div>
         <div class="text-sub">👈 ¡Tocar Intercomunicador 102!</div>
-        
-        <!-- Botón manual para escuchar el saludo -->
-        <button class="audio-btn" onclick="reproducirAudio()">
+
+        <button id="audioBtn" class="audio-btn" type="button">
           🔊 Escuchar Mensaje
         </button>
       </div>
 
-      <button slot="ar-button" class="ar-button" onclick="reproducirAudio()">
+      <button id="arBtn" slot="ar-button" class="ar-button" type="button">
         📱 VER EN MI ESPACIO (AR)
       </button>
-
     </model-viewer>
+
+    <p id="audioStatus" class="audio-status"></p>
   </div>
 
   <script>
-    function reproducirAudio() {
-      var audio = document.getElementById('audioBienvenida');
-      if (audio) {
-        audio.play().catch(function(e) {
-          console.log("Error al reproducir audio:", e);
-        });
+    const audio = document.getElementById("audioBienvenida");
+    const arBtn = document.getElementById("arBtn");
+    const audioBtn = document.getElementById("audioBtn");
+    const audioStatus = document.getElementById("audioStatus");
+
+    async function reproducirAudio() {
+      try {
+        audio.pause();
+        audio.currentTime = 0;
+        audio.volume = 1;
+        await audio.play();
+        audioStatus.textContent = "Audio reproduciéndose...";
+      } catch (error) {
+        audioStatus.textContent = "El celular bloqueó el audio. Toca 'Escuchar Mensaje'.";
+        console.log("Error al reproducir audio:", error);
       }
     }
-  </script>
 
+    audioBtn.addEventListener("click", reproducirAudio);
+
+    arBtn.addEventListener("pointerdown", reproducirAudio);
+    arBtn.addEventListener("touchstart", reproducirAudio, { passive: true });
+    arBtn.addEventListener("click", reproducirAudio);
+  </script>
 </body>
 </html>
