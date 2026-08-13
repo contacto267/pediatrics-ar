@@ -213,13 +213,13 @@
       font-weight: 700;
       line-height: 1.35;
     }
-    .pet-grid, .selfie-tools, .action-grid {
+    .pet-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 8px;
       margin-bottom: 12px;
     }
-    .pet-btn, .tool-btn {
+    .pet-btn {
       min-height: 74px;
       padding: 9px;
       border: 2px solid rgba(0,167,181,.12);
@@ -230,7 +230,7 @@
       box-shadow: 0 8px 18px rgba(22,49,58,.08);
       white-space: normal;
     }
-    .pet-btn.active, .tool-btn.active {
+    .pet-btn.active {
       border-color: var(--sun);
       background: #fff8dd;
     }
@@ -239,86 +239,6 @@
       min-height: 430px;
     }
     .pet-badge { top: 26px; }
-    .camera-card {
-      position: relative;
-      height: 460px;
-      overflow: hidden;
-      border-radius: 18px;
-      background: #17323a;
-    }
-    .camera-card video, .camera-card canvas, .camera-card img.preview {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .camera-empty {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      padding: 24px;
-      color: white;
-      font-size: 17px;
-      font-weight: 950;
-      line-height: 1.35;
-      background: linear-gradient(135deg, #17323a, var(--teal-dark));
-    }
-    .camera-overlay { position: absolute; inset: 0; pointer-events: none; }
-    .camera-dani {
-      position: absolute;
-      left: 12px;
-      bottom: 12px;
-      width: 120px;
-      border-radius: 20px;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
-    }
-    .camera-lumi {
-      position: absolute;
-      right: 10px;
-      bottom: 14px;
-      width: 104px;
-      border-radius: 20px;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.22));
-    }
-    .camera-badge {
-      position: absolute;
-      left: 50%;
-      top: 14px;
-      transform: translateX(-50%);
-      min-width: min(320px, calc(100% - 28px));
-      padding: 10px 14px;
-      border: 3px solid white;
-      border-radius: 18px;
-      background: rgba(255,255,255,.84);
-      color: var(--teal-dark);
-      font-size: 20px;
-      font-weight: 950;
-      box-shadow: 0 10px 24px rgba(0,0,0,.16);
-    }
-    .recording-dot {
-      position: absolute;
-      left: 14px;
-      top: 14px;
-      display: none;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(200,58,105,.92);
-      color: white;
-      font-size: 12px;
-      font-weight: 950;
-    }
-    .recording-dot.active { display: block; }
-    .download-link {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      background: var(--mint);
-      color: white;
-      box-shadow: 0 8px 18px rgba(18,185,129,.22);
-    }
     #mediaBienvenida {
       position: fixed;
       left: 0;
@@ -333,9 +253,8 @@
       .intro { grid-template-columns: 64px 1fr; }
       .intro img, .mascot-face { width: 64px; height: 64px; border-radius: 15px; }
       model-viewer { min-height: 500px; }
-      .pet-grid, .selfie-tools, .action-grid { grid-template-columns: repeat(2, 1fr); }
+      .pet-grid { grid-template-columns: repeat(2, 1fr); }
       .pet-viewer model-viewer { height: 390px; min-height: 390px; }
-      .camera-card { height: 430px; }
     }
   </style>
 </head>
@@ -348,7 +267,7 @@
   <main class="wrap">
     <section class="intro" aria-label="Presentacion de DANI">
       <img src="dani-astronauta-pediatrico.png" alt="DANI explorador pediatrico">
-      <p class="bubble">Hola, soy DANI. Primero te ayudo a ubicar el consultorio; luego puedes jugar con mascotas 3D y tomarte una selfie.</p>
+      <p class="bubble">Hola, soy DANI. Primero te ayudo a ubicar el consultorio; luego puedes jugar con mascotas 3D en realidad aumentada.</p>
     </section>
 
     <video id="mediaBienvenida" src="bienvenida.mp4" preload="auto" playsinline></video>
@@ -417,38 +336,6 @@
       <p class="status" id="petStatus"></p>
     </section>
 
-    <section class="section-title">
-      <h2>Selfie con accesorios</h2>
-      <p>Para Android e iPhone: abre la camara web, elige casco, estetoscopio, lentes o estrella, y descarga foto o video.</p>
-    </section>
-
-    <section class="panel" aria-label="Selfie con DANI">
-      <div class="selfie-tools">
-        <button class="tool-btn active" data-accessory="casco" type="button">Casco</button>
-        <button class="tool-btn" data-accessory="estetoscopio" type="button">Estetoscopio</button>
-        <button class="tool-btn" data-accessory="lentes" type="button">Lentes</button>
-        <button class="tool-btn" data-accessory="estrella" type="button">Estrella</button>
-      </div>
-      <div class="camera-card">
-        <video id="photoVideo" autoplay muted playsinline></video>
-        <canvas id="photoCanvas"></canvas>
-        <img id="photoPreview" class="preview" alt="Foto tomada con DANI">
-        <div class="camera-empty" id="cameraEmpty">Activa la camara para tomarte una foto con DANI.</div>
-        <div class="recording-dot" id="recordingDot">Grabando</div>
-        <div class="camera-overlay">
-          <div class="camera-badge"><span id="cameraSticker">Casco explorador</span></div>
-          <img src="dani-astronauta-pediatrico.png" alt="" class="camera-dani">
-          <img src="lumi-mascota.png" alt="" class="camera-lumi">
-        </div>
-      </div>
-      <div class="action-grid">
-        <button class="main-btn" id="openCamera" type="button">Abrir camara</button>
-        <button class="main-btn" id="takePhoto" type="button">Tomar foto</button>
-        <button class="main-btn" id="recordVideo" type="button">Grabar video</button>
-        <a class="download-link" id="downloadCapture" download="foto-dani-pediatrics.png">Descargar</a>
-      </div>
-      <p class="status" id="selfieStatus"></p>
-    </section>
   </main>
 
   <script>
@@ -526,200 +413,6 @@
       }
     });
 
-    const photoVideo = document.getElementById("photoVideo");
-    const photoCanvas = document.getElementById("photoCanvas");
-    const photoPreview = document.getElementById("photoPreview");
-    const cameraEmpty = document.getElementById("cameraEmpty");
-    const downloadCapture = document.getElementById("downloadCapture");
-    const recordingDot = document.getElementById("recordingDot");
-    const selfieStatus = document.getElementById("selfieStatus");
-    const cameraSticker = document.getElementById("cameraSticker");
-    let cameraStream = null;
-    let recorder = null;
-    let recordedChunks = [];
-    let currentAccessory = "casco";
-
-    document.querySelectorAll(".tool-btn").forEach(function(button) {
-      button.addEventListener("click", function() {
-        currentAccessory = button.dataset.accessory;
-        document.querySelectorAll(".tool-btn").forEach(function(item) {
-          item.classList.toggle("active", item === button);
-        });
-        const label = {
-          casco: "Casco explorador",
-          estetoscopio: "Estetoscopio pediatrico",
-          lentes: "Lentes de DANI",
-          estrella: "Estrella valiente"
-        }[currentAccessory];
-        cameraSticker.textContent = label;
-        selfieStatus.textContent = "Accesorio elegido: " + label + ".";
-      });
-    });
-
-    async function openCamera() {
-      try {
-        cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true });
-        photoVideo.srcObject = cameraStream;
-        cameraEmpty.style.display = "none";
-        photoPreview.style.display = "none";
-        photoCanvas.style.display = "none";
-        downloadCapture.style.display = "none";
-        selfieStatus.textContent = "Camara lista.";
-      } catch (error) {
-        selfieStatus.textContent = "No se pudo abrir la camara. En celular usa HTTPS y acepta permisos.";
-        console.log("Error camara:", error);
-      }
-    }
-
-    function roundRect(ctx, x, y, width, height, radius) {
-      ctx.beginPath();
-      ctx.moveTo(x + radius, y);
-      ctx.lineTo(x + width - radius, y);
-      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-      ctx.lineTo(x + width, y + height - radius);
-      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-      ctx.lineTo(x + radius, y + height);
-      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-      ctx.lineTo(x, y + radius);
-      ctx.quadraticCurveTo(x, y, x + radius, y);
-      ctx.closePath();
-    }
-
-    function drawAccessory(ctx, width, height) {
-      ctx.fillStyle = "rgba(255,255,255,.84)";
-      roundRect(ctx, width * .08, 14, width * .84, 58, 18);
-      ctx.fill();
-      ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = 4;
-      ctx.stroke();
-      ctx.fillStyle = "#007e8c";
-      ctx.font = "bold 28px Segoe UI, Arial";
-      ctx.textAlign = "center";
-      ctx.fillText(cameraSticker.textContent, width / 2, 52);
-
-      ctx.strokeStyle = "#00a7b5";
-      ctx.lineWidth = Math.max(6, width * .012);
-      ctx.fillStyle = "rgba(0,167,181,.12)";
-      if (currentAccessory === "casco") {
-        ctx.beginPath();
-        ctx.arc(width / 2, height * .27, width * .20, Math.PI, Math.PI * 2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(width / 2, height * .27, width * .15, Math.PI, Math.PI * 2);
-        ctx.stroke();
-      }
-      if (currentAccessory === "estetoscopio") {
-        ctx.beginPath();
-        ctx.arc(width * .43, height * .28, width * .035, 0, Math.PI * 2);
-        ctx.arc(width * .57, height * .28, width * .035, 0, Math.PI * 2);
-        ctx.moveTo(width * .43, height * .31);
-        ctx.quadraticCurveTo(width * .50, height * .46, width * .57, height * .31);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(width * .50, height * .49, width * .045, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-      }
-      if (currentAccessory === "lentes") {
-        ctx.strokeRect(width * .34, height * .25, width * .13, height * .055);
-        ctx.strokeRect(width * .53, height * .25, width * .13, height * .055);
-        ctx.beginPath();
-        ctx.moveTo(width * .47, height * .278);
-        ctx.lineTo(width * .53, height * .278);
-        ctx.stroke();
-      }
-      if (currentAccessory === "estrella") {
-        ctx.fillStyle = "#ffbf3f";
-        ctx.font = "bold " + Math.floor(width * .18) + "px Segoe UI, Arial";
-        ctx.fillText("★", width * .50, height * .33);
-      }
-    }
-
-    async function loadImage(src) {
-      return new Promise(function(resolve, reject) {
-        const img = new Image();
-        img.onload = function() { resolve(img); };
-        img.onerror = reject;
-        img.src = src;
-      });
-    }
-
-    async function takePhoto() {
-      if (!cameraStream) await openCamera();
-      if (!photoVideo.videoWidth) return;
-      const width = photoVideo.videoWidth;
-      const height = photoVideo.videoHeight;
-      photoCanvas.width = width;
-      photoCanvas.height = height;
-      const ctx = photoCanvas.getContext("2d");
-      ctx.drawImage(photoVideo, 0, 0, width, height);
-      drawAccessory(ctx, width, height);
-      try {
-        const dani = await loadImage("dani-astronauta-pediatrico.png");
-        const lumi = await loadImage("lumi-mascota.png");
-        const daniW = width * .28;
-        const lumiW = width * .23;
-        ctx.drawImage(dani, 18, height - daniW * (dani.height / dani.width) - 18, daniW, daniW * (dani.height / dani.width));
-        ctx.drawImage(lumi, width - lumiW - 18, height - lumiW * (lumi.height / lumi.width) - 18, lumiW, lumiW * (lumi.height / lumi.width));
-      } catch (error) {
-        console.log("No se pudo dibujar sticker:", error);
-      }
-      const dataUrl = photoCanvas.toDataURL("image/png");
-      photoPreview.src = dataUrl;
-      photoPreview.style.display = "block";
-      downloadCapture.href = dataUrl;
-      downloadCapture.download = "foto-dani-pediatrics.png";
-      downloadCapture.textContent = "Descargar foto";
-      downloadCapture.style.display = "flex";
-      selfieStatus.textContent = "Foto lista.";
-    }
-
-    function pickMimeType() {
-      if (MediaRecorder.isTypeSupported("video/webm;codecs=vp9")) return "video/webm;codecs=vp9";
-      if (MediaRecorder.isTypeSupported("video/webm;codecs=vp8")) return "video/webm;codecs=vp8";
-      if (MediaRecorder.isTypeSupported("video/webm")) return "video/webm";
-      return "";
-    }
-
-    async function toggleRecording() {
-      if (recorder && recorder.state === "recording") {
-        recorder.stop();
-        return;
-      }
-      if (!cameraStream) await openCamera();
-      if (!cameraStream || !window.MediaRecorder) {
-        selfieStatus.textContent = "Este navegador no permite grabar video aqui. Prueba foto.";
-        return;
-      }
-      recordedChunks = [];
-      const mimeType = pickMimeType();
-      recorder = new MediaRecorder(cameraStream, mimeType ? { mimeType } : undefined);
-      recorder.ondataavailable = function(event) {
-        if (event.data.size > 0) recordedChunks.push(event.data);
-      };
-      recorder.onstop = function() {
-        const blob = new Blob(recordedChunks, { type: mimeType || "video/webm" });
-        const url = URL.createObjectURL(blob);
-        downloadCapture.href = url;
-        downloadCapture.download = "video-dani-pediatrics.webm";
-        downloadCapture.textContent = "Descargar video";
-        downloadCapture.style.display = "flex";
-        recordingDot.classList.remove("active");
-        document.getElementById("recordVideo").textContent = "Grabar video";
-        selfieStatus.textContent = "Video listo.";
-      };
-      recorder.start();
-      recordingDot.classList.add("active");
-      document.getElementById("recordVideo").textContent = "Detener";
-      selfieStatus.textContent = "Grabando video corto.";
-      setTimeout(function() {
-        if (recorder && recorder.state === "recording") recorder.stop();
-      }, 12000);
-    }
-
-    document.getElementById("openCamera").addEventListener("click", openCamera);
-    document.getElementById("takePhoto").addEventListener("click", takePhoto);
-    document.getElementById("recordVideo").addEventListener("click", toggleRecording);
   </script>
 </body>
 </html>
