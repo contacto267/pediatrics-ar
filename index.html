@@ -321,8 +321,8 @@
 
     .game-tabs {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
       margin-bottom: 12px;
     }
 
@@ -335,15 +335,33 @@
     }
 
     .game-tab {
-      min-height: 44px;
+      min-height: 104px;
+      padding: 14px;
       background: white;
-      color: var(--muted);
+      color: var(--ink);
       box-shadow: 0 6px 16px rgba(23, 49, 58, 0.08);
+      text-align: left;
     }
 
     .game-tab.active {
-      background: var(--sun);
+      background: #fff8dd;
       color: var(--ink);
+      outline: 3px solid var(--sun);
+    }
+
+    .game-tab strong {
+      display: block;
+      color: var(--teal-dark);
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    .game-tab span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
     }
 
     .game-panel {
@@ -421,6 +439,13 @@
       box-shadow: 0 12px 24px rgba(0, 126, 140, 0.28);
     }
 
+    .back-games {
+      margin-top: 10px;
+      border: 1px solid rgba(0, 126, 140, 0.22);
+      background: rgba(255,255,255,0.76);
+      color: var(--teal-dark);
+    }
+
     .mission-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -465,6 +490,10 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 8px;
+    }
+
+    .flat-legacy {
+      display: none;
     }
 
     .panel-head {
@@ -808,7 +837,7 @@
       }
 
       .game-tabs {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
       }
 
       .mission-grid,
@@ -917,12 +946,27 @@
       <p class="mascot-says" id="lumiMessage">Hola, soy LUMI. Ahora tambien puedo aparecer en 3D para jugar en tu espacio.</p>
     </div>
 
-    <div class="game-tabs" role="tablist" aria-label="Juegos disponibles">
-      <button class="game-tab active" data-game="ar" type="button">AR 3D</button>
-      <button class="game-tab" data-game="stars" type="button">Estrellas</button>
-      <button class="game-tab" data-game="puzzle" type="button">Puzzle</button>
-      <button class="game-tab" data-game="breath" type="button">Respira</button>
-      <button class="game-tab" data-game="photo" type="button">Foto</button>
+    <div class="game-tabs" id="gamesMenu" aria-label="Juegos AR disponibles">
+      <button class="game-tab active" data-game="ar" type="button">
+        <strong>LUMI 3D</strong>
+        <span>Mascota en realidad aumentada con misiones.</span>
+      </button>
+      <button class="game-tab" data-game="stars" type="button">
+        <strong>Busca estrellas AR</strong>
+        <span>Abre a LUMI y encuentra objetos brillantes en la sala.</span>
+      </button>
+      <button class="game-tab" data-game="puzzle" type="button">
+        <strong>Colores AR</strong>
+        <span>Encuentra los colores del logo alrededor tuyo.</span>
+      </button>
+      <button class="game-tab" data-game="breath" type="button">
+        <strong>Respira AR</strong>
+        <span>LUMI te acompana en una pausa tranquila.</span>
+      </button>
+      <button class="game-tab" data-game="photo" type="button">
+        <strong>Foto AR</strong>
+        <span>Foto o video con DANI y LUMI.</span>
+      </button>
     </div>
 
     <section class="game-panel active" id="arGame">
@@ -938,18 +982,16 @@
         <div class="lumi-badge"><span></span>LUMI 3D</div>
         <model-viewer
           id="lumiViewer"
-          src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb"
+          src="lumi.glb"
           alt="LUMI, mascota 3D para juegos de realidad aumentada"
           ar
           ar-modes="webxr scene-viewer quick-look"
           camera-controls
           auto-rotate
-          autoplay
-          animation-name="Dance"
           shadow-intensity="1"
           exposure="1"
-          scale="0.34 0.34 0.34"
-          camera-orbit="20deg 72deg 4m"
+          scale="1.2 1.2 1.2"
+          camera-orbit="20deg 72deg 3.2m"
           field-of-view="28deg">
         </model-viewer>
         <button id="lumiArBtn" class="lumi-ar-button" type="button">VER A LUMI 3D EN MI ESPACIO</button>
@@ -974,47 +1016,70 @@
         <button class="game-btn" id="missionHint" type="button">Pista</button>
         <button class="game-btn" id="missionNext" type="button">Otra mision</button>
       </div>
+      <button class="game-btn back-games" type="button">Volver a elegir juego</button>
     </section>
 
     <section class="game-panel" id="starsGame">
       <div class="panel-head">
         <div>
-          <h3>Atrapa estrellas</h3>
-          <p>Toca las estrellas antes de que desaparezcan.</p>
+          <h3>Busca estrellas AR</h3>
+          <p>Abre a LUMI 3D, mira la sala y encuentra tres objetos brillantes.</p>
         </div>
-        <button class="game-btn" id="startStars" type="button">Iniciar</button>
+        <button class="game-btn ar-open-game" data-target="lumiViewerStars" type="button">Abrir AR</button>
       </div>
-      <div class="stars-board" id="starsBoard">
-        <span class="hint">Presiona iniciar</span>
+      <div class="ar-mission-viewer">
+        <div class="lumi-badge"><span></span>LUMI busca estrellas</div>
+        <model-viewer id="lumiViewerStars" src="lumi.glb" alt="LUMI busca estrellas en AR" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate shadow-intensity="1" exposure="1" scale="1.2 1.2 1.2" camera-orbit="20deg 72deg 3.2m" field-of-view="28deg"></model-viewer>
+      </div>
+      <div class="mission-actions">
+        <button class="game-btn complete-game" data-points="30" data-message="¡Encontraste tres estrellas con LUMI!" type="button">Complete 3 estrellas</button>
+        <button class="game-btn back-games" type="button">Volver</button>
       </div>
     </section>
 
     <section class="game-panel" id="puzzleGame">
       <div class="panel-head">
         <div>
-          <h3>Arma el logo</h3>
-          <p>Ordena los colores del sello Pediatrics Home.</p>
+          <h3>Colores AR</h3>
+          <p>Abre a LUMI 3D y encuentra turquesa, rosa, azul y morado en la sala.</p>
         </div>
-        <button class="game-btn" id="shufflePuzzle" type="button">Mezclar</button>
+        <button class="game-btn ar-open-game" data-target="lumiViewerColors" type="button">Abrir AR</button>
       </div>
-      <div class="puzzle-board" id="puzzleBoard"></div>
+      <div class="ar-mission-viewer">
+        <div class="lumi-badge"><span></span>LUMI colores</div>
+        <model-viewer id="lumiViewerColors" src="lumi.glb" alt="LUMI colores en AR" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate shadow-intensity="1" exposure="1" scale="1.2 1.2 1.2" camera-orbit="20deg 72deg 3.2m" field-of-view="28deg"></model-viewer>
+      </div>
+      <div class="mission-grid">
+        <button class="mission-card complete-game" data-points="10" data-message="Turquesa encontrado." type="button"><strong>Turquesa</strong><span>Color de DANI.</span></button>
+        <button class="mission-card complete-game" data-points="10" data-message="Rosa encontrado." type="button"><strong>Rosa</strong><span>Color del logo.</span></button>
+        <button class="mission-card complete-game" data-points="10" data-message="Azul encontrado." type="button"><strong>Azul</strong><span>Color del logo.</span></button>
+      </div>
+      <button class="game-btn back-games" type="button">Volver</button>
     </section>
 
     <section class="game-panel" id="breathGame">
       <div class="panel-head">
         <div>
-          <h3>Respira con DANI</h3>
-          <p>Sigue el circulo: inhalar, sostener y soltar.</p>
+          <h3>Respira AR con LUMI</h3>
+          <p>Abre a LUMI en tu espacio y sigue la guia de respiracion.</p>
         </div>
-        <button class="game-btn" id="breathBtn" type="button">Empezar</button>
+        <button class="game-btn ar-open-game" data-target="lumiViewerBreath" type="button">Abrir AR</button>
       </div>
-      <div class="breath-stage">
+      <div class="ar-mission-viewer">
+        <div class="lumi-badge"><span></span>LUMI respira</div>
+        <model-viewer id="lumiViewerBreath" src="lumi.glb" alt="LUMI respiracion en AR" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate shadow-intensity="1" exposure="1" scale="1.2 1.2 1.2" camera-orbit="20deg 72deg 3.2m" field-of-view="28deg"></model-viewer>
+      </div>
+      <div class="breath-stage flat-legacy">
         <div class="breath-orbit">
           <div class="breath-circle" id="breathCircle">
             <span id="breathWord">Listo</span>
           </div>
         </div>
         <p id="breathStep">DANI te guia para sentirte tranquilo.</p>
+      </div>
+      <div class="mission-actions">
+        <button class="game-btn" id="breathBtn" type="button">Iniciar guia</button>
+        <button class="game-btn back-games" type="button">Volver</button>
       </div>
     </section>
 
@@ -1044,7 +1109,8 @@
         <button class="game-btn" id="recordVideo" type="button">Grabar video</button>
         <a class="capture-link" id="downloadCapture" download="foto-dani-pediatrics.png">Descargar</a>
       </div>
-      <div class="photo-card">
+      <button class="game-btn back-games" type="button">Volver a elegir juego</button>
+      <div class="photo-card flat-legacy">
         <img src="dani-astronauta-pediatrico.png" alt="DANI para foto" class="photo-dani">
         <img src="lumi-mascota.png" alt="LUMI para foto" class="photo-lumi">
         <div class="photo-frame">
@@ -1140,16 +1206,46 @@
       ar: "Abre a LUMI 3D en realidad aumentada y completa una mision."
     };
 
+    function showGame(game) {
+      gameTabs.forEach(function(item) {
+        item.classList.toggle("active", item.dataset.game === game);
+      });
+      Object.keys(gamePanels).forEach(function(key) {
+        gamePanels[key].classList.toggle("active", key === game);
+      });
+      lumiMessage.textContent = gameMessages[game];
+      document.getElementById("gamesMenu").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
     gameTabs.forEach(function(tab) {
       tab.addEventListener("click", function() {
-        const game = tab.dataset.game;
-        gameTabs.forEach(function(item) {
-          item.classList.toggle("active", item === tab);
-        });
-        Object.keys(gamePanels).forEach(function(key) {
-          gamePanels[key].classList.toggle("active", key === game);
-        });
-        lumiMessage.textContent = gameMessages[game];
+        showGame(tab.dataset.game);
+      });
+    });
+
+    document.querySelectorAll(".back-games").forEach(function(button) {
+      button.addEventListener("click", function() {
+        document.getElementById("gamesMenu").scrollIntoView({ behavior: "smooth", block: "center" });
+        lumiMessage.textContent = "Elige otra mision AR con LUMI.";
+      });
+    });
+
+    document.querySelectorAll(".ar-open-game").forEach(function(button) {
+      button.addEventListener("click", function() {
+        const viewer = document.getElementById(button.dataset.target);
+        if (viewer && viewer.activateAR) {
+          viewer.activateAR();
+          lumiMessage.textContent = "LUMI esta entrando a tu espacio. Completa el reto y vuelve por tus puntos.";
+        } else {
+          lumiMessage.textContent = "LUMI 3D todavia esta cargando. Espera un segundo.";
+        }
+      });
+    });
+
+    document.querySelectorAll(".complete-game").forEach(function(button) {
+      button.addEventListener("click", function() {
+        addScore(Number(button.dataset.points || 10));
+        lumiMessage.textContent = button.dataset.message || "Mision completada con LUMI.";
       });
     });
 
@@ -1172,7 +1268,6 @@
         card.classList.toggle("active", cardIndex === index);
       });
       const card = missionCards[index];
-      lumiViewer.setAttribute("animation-name", card.dataset.animation);
       lumiMessage.textContent = card.querySelector("strong").textContent + ": " + card.querySelector("span").textContent;
     }
 
