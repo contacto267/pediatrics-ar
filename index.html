@@ -359,6 +359,114 @@
       display: block;
     }
 
+    .ar-mission-viewer {
+      position: relative;
+      margin-bottom: 12px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #eefcff, #ffffff);
+      box-shadow: 0 14px 32px rgba(23, 49, 58, 0.12);
+    }
+
+    .ar-mission-viewer model-viewer {
+      height: 360px;
+      min-height: 360px;
+      border: 0;
+      border-radius: 20px;
+      box-shadow: none;
+      background:
+        radial-gradient(circle at center 42%, rgba(255, 255, 255, 0.96), rgba(223, 251, 255, 0.86) 48%, rgba(233, 248, 248, 0.98) 100%);
+    }
+
+    .lumi-badge {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      color: var(--teal-dark);
+      font-size: 12px;
+      font-weight: 950;
+      box-shadow: 0 8px 18px rgba(23, 49, 58, 0.12);
+    }
+
+    .lumi-badge span {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--sun);
+      box-shadow: 0 0 12px rgba(255, 191, 63, 0.9);
+    }
+
+    .lumi-ar-button {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      z-index: 5;
+      transform: translateX(-50%);
+      min-width: min(310px, calc(100% - 34px));
+      min-height: 48px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--purple), var(--teal));
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 950;
+      box-shadow: 0 12px 24px rgba(0, 126, 140, 0.28);
+    }
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .mission-card {
+      min-height: 90px;
+      padding: 10px;
+      border: 2px solid rgba(0, 167, 181, 0.12);
+      border-radius: 18px;
+      background: white;
+      color: var(--ink);
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(23, 49, 58, 0.08);
+      text-align: left;
+    }
+
+    .mission-card.active {
+      border-color: var(--sun);
+      background: #fff8dd;
+    }
+
+    .mission-card strong {
+      display: block;
+      color: var(--teal-dark);
+      font-size: 15px;
+      line-height: 1.1;
+    }
+
+    .mission-card span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+      line-height: 1.25;
+    }
+
+    .mission-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
     .panel-head {
       display: flex;
       align-items: flex-start;
@@ -506,6 +614,119 @@
         linear-gradient(135deg, #dffbff, #fff0f7 52%, #f7f0ff);
     }
 
+    .camera-card {
+      position: relative;
+      min-height: 420px;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #17323a;
+    }
+
+    .camera-card video,
+    .camera-card canvas,
+    .camera-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .camera-empty {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      color: white;
+      font-size: 17px;
+      font-weight: 900;
+      line-height: 1.35;
+      background:
+        radial-gradient(circle at 28% 20%, rgba(255,255,255,0.13), transparent 26%),
+        linear-gradient(135deg, #17323a, #007e8c);
+    }
+
+    .camera-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .camera-sticker {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      width: 122px;
+      border-radius: 20px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.25));
+    }
+
+    .camera-lumi {
+      position: absolute;
+      right: 10px;
+      bottom: 16px;
+      width: 104px;
+      border-radius: 20px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.22));
+    }
+
+    .camera-badge {
+      position: absolute;
+      left: 50%;
+      top: 14px;
+      transform: translateX(-50%);
+      min-width: min(320px, calc(100% - 28px));
+      padding: 10px 14px;
+      border: 3px solid white;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.82);
+      color: var(--teal-dark);
+      font-size: 20px;
+      font-weight: 950;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.16);
+    }
+
+    .camera-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .capture-link {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border-radius: 14px;
+      background: var(--mint);
+      color: white;
+      font-size: 14px;
+      font-weight: 950;
+      text-decoration: none;
+      box-shadow: 0 8px 18px rgba(18, 185, 129, 0.22);
+    }
+
+    .recording-dot {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      display: none;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(200, 58, 105, 0.92);
+      color: white;
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .recording-dot.active {
+      display: flex;
+    }
+
     .photo-dani {
       position: absolute;
       left: 38%;
@@ -590,14 +811,24 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
+      .mission-grid,
+      .mission-actions {
+        grid-template-columns: 1fr;
+      }
+
       .game-btn {
         width: 100%;
       }
 
       .stars-board,
       .breath-stage,
-      .photo-card {
+      .photo-card,
+      .camera-card {
         height: 360px;
+      }
+
+      .camera-actions {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -683,17 +914,69 @@
 
     <div class="mascot-row">
       <img src="lumi-mascota.png" alt="LUMI mascota pediatrica">
-      <p class="mascot-says" id="lumiMessage">Hola, soy LUMI. Elige un juego y juntemos puntos de explorador.</p>
+      <p class="mascot-says" id="lumiMessage">Hola, soy LUMI. Ahora tambien puedo aparecer en 3D para jugar en tu espacio.</p>
     </div>
 
     <div class="game-tabs" role="tablist" aria-label="Juegos disponibles">
-      <button class="game-tab active" data-game="stars" type="button">Estrellas</button>
+      <button class="game-tab active" data-game="ar" type="button">AR 3D</button>
+      <button class="game-tab" data-game="stars" type="button">Estrellas</button>
       <button class="game-tab" data-game="puzzle" type="button">Puzzle</button>
       <button class="game-tab" data-game="breath" type="button">Respira</button>
       <button class="game-tab" data-game="photo" type="button">Foto</button>
     </div>
 
-    <section class="game-panel active" id="starsGame">
+    <section class="game-panel active" id="arGame">
+      <div class="panel-head">
+        <div>
+          <h3>Misiones AR con LUMI 3D</h3>
+          <p>Elige una mision, abre a LUMI en tu espacio y completa el reto.</p>
+        </div>
+        <button class="game-btn" id="missionDone" type="button">Completar</button>
+      </div>
+
+      <div class="ar-mission-viewer">
+        <div class="lumi-badge"><span></span>LUMI 3D</div>
+        <model-viewer
+          id="lumiViewer"
+          src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb"
+          alt="LUMI, mascota 3D para juegos de realidad aumentada"
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          camera-controls
+          auto-rotate
+          autoplay
+          animation-name="Dance"
+          shadow-intensity="1"
+          exposure="1"
+          scale="0.34 0.34 0.34"
+          camera-orbit="20deg 72deg 4m"
+          field-of-view="28deg">
+        </model-viewer>
+        <button id="lumiArBtn" class="lumi-ar-button" type="button">VER A LUMI 3D EN MI ESPACIO</button>
+      </div>
+
+      <div class="mission-grid">
+        <button class="mission-card active" data-mission="stars" data-animation="Dance" type="button">
+          <strong>Busca 3 estrellas</strong>
+          <span>Mira alrededor y senala tres objetos brillantes.</span>
+        </button>
+        <button class="mission-card" data-mission="colors" data-animation="Wave" type="button">
+          <strong>Color turquesa</strong>
+          <span>Encuentra algo del color de Pediatrics Home.</span>
+        </button>
+        <button class="mission-card" data-mission="brave" data-animation="Jump" type="button">
+          <strong>Pose valiente</strong>
+          <span>Haz una pose con LUMI y gana puntos.</span>
+        </button>
+      </div>
+
+      <div class="mission-actions">
+        <button class="game-btn" id="missionHint" type="button">Pista</button>
+        <button class="game-btn" id="missionNext" type="button">Otra mision</button>
+      </div>
+    </section>
+
+    <section class="game-panel" id="starsGame">
       <div class="panel-head">
         <div>
           <h3>Atrapa estrellas</h3>
@@ -738,10 +1021,28 @@
     <section class="game-panel" id="photoGame">
       <div class="panel-head">
         <div>
-          <h3>Foto con DANI y LUMI</h3>
-          <p>Elige un sticker para una foto divertida.</p>
+          <h3>Foto o video con DANI</h3>
+          <p>Abre la camara, toma una foto o graba un video corto.</p>
         </div>
         <button class="game-btn" id="changeSticker" type="button">Cambiar</button>
+      </div>
+      <div class="camera-card" id="cameraCard">
+        <video id="photoVideo" autoplay muted playsinline></video>
+        <canvas id="photoCanvas"></canvas>
+        <img id="photoPreview" alt="Foto tomada con DANI">
+        <div class="camera-empty" id="cameraEmpty">Activa la camara para tomarte una foto con DANI y LUMI.</div>
+        <div class="recording-dot" id="recordingDot">● Grabando</div>
+        <div class="camera-overlay" id="cameraOverlay">
+          <div class="camera-badge"><span id="cameraSticker">Valiente paciente</span></div>
+          <img src="dani-astronauta-pediatrico.png" alt="" class="camera-sticker">
+          <img src="lumi-mascota.png" alt="" class="camera-lumi">
+        </div>
+      </div>
+      <div class="camera-actions">
+        <button class="game-btn" id="openCamera" type="button">Abrir camara</button>
+        <button class="game-btn" id="takePhoto" type="button">Tomar foto</button>
+        <button class="game-btn" id="recordVideo" type="button">Grabar video</button>
+        <a class="capture-link" id="downloadCapture" download="foto-dani-pediatrics.png">Descargar</a>
       </div>
       <div class="photo-card">
         <img src="dani-astronauta-pediatrico.png" alt="DANI para foto" class="photo-dani">
@@ -826,7 +1127,8 @@
       stars: document.getElementById("starsGame"),
       puzzle: document.getElementById("puzzleGame"),
       breath: document.getElementById("breathGame"),
-      photo: document.getElementById("photoGame")
+      photo: document.getElementById("photoGame"),
+      ar: document.getElementById("arGame")
     };
     const lumiMessage = document.getElementById("lumiMessage");
     const gameScore = document.getElementById("gameScore");
@@ -834,7 +1136,8 @@
       stars: "Atrapa estrellas conmigo. Cada toque suma puntos.",
       puzzle: "Arma los colores del logo y descubre el sello de Pediatrics Home.",
       breath: "Respiremos juntos. Esto ayuda antes de entrar a consulta.",
-      photo: "Elige un sticker para una foto con DANI y LUMI."
+      photo: "Elige un sticker para una foto con DANI y LUMI.",
+      ar: "Abre a LUMI 3D en realidad aumentada y completa una mision."
     };
 
     gameTabs.forEach(function(tab) {
@@ -848,6 +1151,58 @@
         });
         lumiMessage.textContent = gameMessages[game];
       });
+    });
+
+    const lumiViewer = document.getElementById("lumiViewer");
+    const lumiArBtn = document.getElementById("lumiArBtn");
+    const missionCards = Array.from(document.querySelectorAll(".mission-card"));
+    const missionDone = document.getElementById("missionDone");
+    const missionHint = document.getElementById("missionHint");
+    const missionNext = document.getElementById("missionNext");
+    const missionHints = {
+      stars: "Pista: busca luces, reflejos o dibujos con forma de estrella.",
+      colors: "Pista: el turquesa se parece al color de DANI y Pediatrics Home.",
+      brave: "Pista: ponte derecho, sonrie y levanta una mano como explorador."
+    };
+    let activeMissionIndex = 0;
+
+    function setMission(index) {
+      activeMissionIndex = index;
+      missionCards.forEach(function(card, cardIndex) {
+        card.classList.toggle("active", cardIndex === index);
+      });
+      const card = missionCards[index];
+      lumiViewer.setAttribute("animation-name", card.dataset.animation);
+      lumiMessage.textContent = card.querySelector("strong").textContent + ": " + card.querySelector("span").textContent;
+    }
+
+    missionCards.forEach(function(card, index) {
+      card.addEventListener("click", function() {
+        setMission(index);
+      });
+    });
+
+    lumiArBtn.addEventListener("click", function() {
+      if (lumiViewer && lumiViewer.activateAR) {
+        lumiViewer.activateAR();
+        lumiMessage.textContent = "LUMI esta entrando a tu espacio. Completa la mision y vuelve por tus puntos.";
+      } else {
+        lumiMessage.textContent = "LUMI todavia esta cargando. Espera un segundo y vuelve a tocar.";
+      }
+    });
+
+    missionDone.addEventListener("click", function() {
+      addScore(30);
+      lumiMessage.textContent = "¡Mision completada! Ganaste 30 puntos con LUMI.";
+    });
+
+    missionHint.addEventListener("click", function() {
+      const mission = missionCards[activeMissionIndex].dataset.mission;
+      lumiMessage.textContent = missionHints[mission];
+    });
+
+    missionNext.addEventListener("click", function() {
+      setMission((activeMissionIndex + 1) % missionCards.length);
     });
 
     let score = 0;
@@ -1023,11 +1378,170 @@
     ];
     let stickerIndex = 0;
     const sticker = document.getElementById("sticker");
+    const cameraSticker = document.getElementById("cameraSticker");
     document.getElementById("changeSticker").addEventListener("click", function() {
       stickerIndex = (stickerIndex + 1) % stickers.length;
       sticker.textContent = stickers[stickerIndex];
+      cameraSticker.textContent = stickers[stickerIndex];
       lumiMessage.textContent = "Ese sticker se ve genial para una foto.";
     });
+
+    const openCameraBtn = document.getElementById("openCamera");
+    const takePhotoBtn = document.getElementById("takePhoto");
+    const recordVideoBtn = document.getElementById("recordVideo");
+    const photoVideo = document.getElementById("photoVideo");
+    const photoCanvas = document.getElementById("photoCanvas");
+    const photoPreview = document.getElementById("photoPreview");
+    const cameraEmpty = document.getElementById("cameraEmpty");
+    const cameraOverlay = document.getElementById("cameraOverlay");
+    const downloadCapture = document.getElementById("downloadCapture");
+    const recordingDot = document.getElementById("recordingDot");
+    let cameraStream = null;
+    let recorder = null;
+    let recordedChunks = [];
+
+    async function openCamera() {
+      try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user" },
+          audio: true
+        });
+        photoVideo.srcObject = cameraStream;
+        cameraEmpty.style.display = "none";
+        photoPreview.style.display = "none";
+        photoCanvas.style.display = "none";
+        downloadCapture.style.display = "none";
+        lumiMessage.textContent = "Camara lista. Puedes tomar foto o grabar video.";
+      } catch (error) {
+        lumiMessage.textContent = "No se pudo abrir la camara. En celular usa HTTPS y acepta permisos.";
+        console.log("Error camara:", error);
+      }
+    }
+
+    function drawOverlayToCanvas(ctx, width, height) {
+      ctx.fillStyle = "rgba(255,255,255,0.84)";
+      roundRect(ctx, width * 0.08, 14, width * 0.84, 58, 18);
+      ctx.fill();
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      ctx.fillStyle = "#007e8c";
+      ctx.font = "bold 28px Segoe UI, Arial";
+      ctx.textAlign = "center";
+      ctx.fillText(cameraSticker.textContent, width / 2, 52);
+    }
+
+    function roundRect(ctx, x, y, width, height, radius) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+    }
+
+    async function loadImage(src) {
+      return new Promise(function(resolve, reject) {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = function() { resolve(img); };
+        img.onerror = reject;
+        img.src = src;
+      });
+    }
+
+    async function takePhoto() {
+      if (!cameraStream) {
+        await openCamera();
+      }
+      if (!photoVideo.videoWidth) return;
+
+      const width = photoVideo.videoWidth;
+      const height = photoVideo.videoHeight;
+      photoCanvas.width = width;
+      photoCanvas.height = height;
+      const ctx = photoCanvas.getContext("2d");
+      ctx.drawImage(photoVideo, 0, 0, width, height);
+      drawOverlayToCanvas(ctx, width, height);
+
+      try {
+        const daniImg = await loadImage("dani-astronauta-pediatrico.png");
+        const lumiImg = await loadImage("lumi-mascota.png");
+        const daniW = width * 0.28;
+        const daniH = daniW * (daniImg.height / daniImg.width);
+        const lumiW = width * 0.24;
+        const lumiH = lumiW * (lumiImg.height / lumiImg.width);
+        ctx.drawImage(daniImg, 18, height - daniH - 18, daniW, daniH);
+        ctx.drawImage(lumiImg, width - lumiW - 18, height - lumiH - 18, lumiW, lumiH);
+      } catch (error) {
+        console.log("No se pudo dibujar sticker:", error);
+      }
+
+      const dataUrl = photoCanvas.toDataURL("image/png");
+      photoPreview.src = dataUrl;
+      photoPreview.style.display = "block";
+      downloadCapture.href = dataUrl;
+      downloadCapture.download = "foto-dani-pediatrics.png";
+      downloadCapture.textContent = "Descargar foto";
+      downloadCapture.style.display = "flex";
+      lumiMessage.textContent = "Foto lista. Puedes descargarla o tomar otra.";
+    }
+
+    function pickMimeType() {
+      if (MediaRecorder.isTypeSupported("video/webm;codecs=vp9")) return "video/webm;codecs=vp9";
+      if (MediaRecorder.isTypeSupported("video/webm;codecs=vp8")) return "video/webm;codecs=vp8";
+      if (MediaRecorder.isTypeSupported("video/webm")) return "video/webm";
+      return "";
+    }
+
+    async function toggleRecording() {
+      if (recorder && recorder.state === "recording") {
+        recorder.stop();
+        return;
+      }
+
+      if (!cameraStream) {
+        await openCamera();
+      }
+      if (!cameraStream || !window.MediaRecorder) {
+        lumiMessage.textContent = "Este navegador no permite grabar video aqui. Prueba tomar foto.";
+        return;
+      }
+
+      recordedChunks = [];
+      const mimeType = pickMimeType();
+      recorder = new MediaRecorder(cameraStream, mimeType ? { mimeType } : undefined);
+      recorder.ondataavailable = function(event) {
+        if (event.data.size > 0) recordedChunks.push(event.data);
+      };
+      recorder.onstop = function() {
+        const blob = new Blob(recordedChunks, { type: mimeType || "video/webm" });
+        const url = URL.createObjectURL(blob);
+        downloadCapture.href = url;
+        downloadCapture.download = "video-dani-pediatrics.webm";
+        downloadCapture.textContent = "Descargar video";
+        downloadCapture.style.display = "flex";
+        recordingDot.classList.remove("active");
+        recordVideoBtn.textContent = "Grabar video";
+        lumiMessage.textContent = "Video listo. Descargalo desde el boton verde.";
+      };
+      recorder.start();
+      recordingDot.classList.add("active");
+      recordVideoBtn.textContent = "Detener";
+      lumiMessage.textContent = "Grabando video corto con DANI y LUMI.";
+      setTimeout(function() {
+        if (recorder && recorder.state === "recording") recorder.stop();
+      }, 12000);
+    }
+
+    openCameraBtn.addEventListener("click", openCamera);
+    takePhotoBtn.addEventListener("click", takePhoto);
+    recordVideoBtn.addEventListener("click", toggleRecording);
   </script>
 </body>
 </html>
