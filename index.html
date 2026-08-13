@@ -239,6 +239,90 @@
       min-height: 430px;
     }
     .pet-badge { top: 26px; }
+    .selfie-tools {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+      margin-bottom: 12px;
+    }
+    .selfie-avatar-btn {
+      min-height: 58px;
+      padding: 9px 10px;
+      border: 2px solid rgba(0,167,181,.12);
+      border-radius: 16px;
+      background: #fff;
+      color: var(--teal-dark);
+      font-size: 14px;
+      box-shadow: 0 8px 18px rgba(22,49,58,.08);
+      white-space: normal;
+    }
+    .selfie-avatar-btn.active {
+      border-color: var(--sun);
+      background: #fff8dd;
+    }
+    .camera-card {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      max-height: 610px;
+      border: 1px solid rgba(0,126,140,.18);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #e9fbff, #ffffff);
+      box-shadow: 0 14px 30px rgba(22,49,58,.12);
+      touch-action: none;
+    }
+    #selfieVideo, #selfiePreview {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    #selfiePreview {
+      display: none;
+      z-index: 3;
+      background: white;
+    }
+    .selfie-placeholder {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      color: var(--teal-dark);
+      font-weight: 900;
+      line-height: 1.3;
+    }
+    .selfie-sticker {
+      position: absolute;
+      left: 52%;
+      top: 62%;
+      z-index: 4;
+      width: 34%;
+      max-width: 190px;
+      min-width: 110px;
+      transform: translate(-50%, -50%);
+      filter: drop-shadow(0 12px 18px rgba(22,49,58,.22));
+      user-select: none;
+      pointer-events: none;
+    }
+    .camera-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+      margin-top: 12px;
+    }
+    .download-link {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 13px 18px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: white;
+      box-shadow: 0 12px 26px rgba(42,167,223,.25);
+    }
     #mediaBienvenida {
       position: fixed;
       left: 0;
@@ -255,6 +339,7 @@
       model-viewer { min-height: 500px; }
       .pet-grid { grid-template-columns: repeat(2, 1fr); }
       .pet-viewer model-viewer { height: 390px; min-height: 390px; }
+      .camera-actions { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -337,8 +422,31 @@
     </section>
 
     <section class="section-title">
-      <h2>Selfie con avatares 3D</h2>
-      <p>Para selfie real: elige una mascota 3D arriba, toca Ver mascota en mi espacio y usa la captura de pantalla o grabacion del celular mientras el avatar esta en AR.</p>
+      <h2>Selfie con DANI y LUMI</h2>
+      <p>Selfie rapida con DANI o LUMI. Para mascotas 3D reales, abre AR arriba y usa captura de pantalla del celular.</p>
+    </section>
+
+    <section class="panel" aria-label="Selfie con DANI y LUMI">
+      <div class="selfie-tools">
+        <button class="selfie-avatar-btn active" type="button" data-avatar="dani-astronauta-pediatrico.png" data-name="DANI">DANI<br>explorador</button>
+        <button class="selfie-avatar-btn" type="button" data-avatar="lumi-mascota.png" data-name="LUMI">LUMI<br>mascota</button>
+      </div>
+
+      <div id="cameraCard" class="camera-card">
+        <video id="selfieVideo" playsinline muted></video>
+        <div id="selfiePlaceholder" class="selfie-placeholder">Abre la camara y mueve el avatar con tu dedo.</div>
+        <img id="selfieSticker" class="selfie-sticker" src="dani-astronauta-pediatrico.png" alt="Avatar para selfie">
+        <canvas id="selfieCanvas" style="display:none;"></canvas>
+        <img id="selfiePreview" alt="Selfie tomada">
+      </div>
+
+      <div class="camera-actions">
+        <button id="openCameraBtn" class="main-btn" type="button">Abrir camara</button>
+        <button id="takePhotoBtn" class="main-btn" type="button">Tomar foto</button>
+        <a id="downloadPhoto" class="download-link" download="selfie-dani-pediatrics-home.png">Descargar foto</a>
+        <button id="resetPhotoBtn" class="ghost-btn" type="button">Volver a camara</button>
+      </div>
+      <p id="selfieStatus" class="status">Selfie lista.</p>
     </section>
 
 
@@ -407,7 +515,16 @@
         petViewer.setAttribute("alt", currentPetName + " mascota 3D en realidad aumentada");
         petNameBadge.textContent = currentPetName + " 3D";
         petMessage.textContent = currentPetName + " esta listo para aparecer en tu espacio.";
+        petStatus.textContent = "Cargando " + currentPetName + "...";
       });
+    });
+
+    petViewer.addEventListener("load", function() {
+      petStatus.textContent = currentPetName + " cargado correctamente.";
+    });
+    petViewer.addEventListener("error", function(event) {
+      petStatus.textContent = "No se pudo cargar " + currentPetName + ". Revisa que el archivo .glb este subido.";
+      console.log("Error de mascota 3D:", event);
     });
 
     document.getElementById("petArBtn").addEventListener("click", function() {
@@ -417,6 +534,97 @@
       } else {
         petStatus.textContent = "La mascota todavia esta cargando.";
       }
+    });
+
+    const selfieVideo = document.getElementById("selfieVideo");
+    const selfiePlaceholder = document.getElementById("selfiePlaceholder");
+    const selfieSticker = document.getElementById("selfieSticker");
+    const selfieCanvas = document.getElementById("selfieCanvas");
+    const selfiePreview = document.getElementById("selfiePreview");
+    const selfieStatus = document.getElementById("selfieStatus");
+    const cameraCard = document.getElementById("cameraCard");
+    const downloadPhoto = document.getElementById("downloadPhoto");
+    let selfieStream = null;
+    let stickerX = 0.52;
+    let stickerY = 0.62;
+
+    function setStickerPosition(x, y) {
+      stickerX = Math.max(0.12, Math.min(0.88, x));
+      stickerY = Math.max(0.16, Math.min(0.90, y));
+      selfieSticker.style.left = (stickerX * 100) + "%";
+      selfieSticker.style.top = (stickerY * 100) + "%";
+    }
+
+    cameraCard.addEventListener("pointerdown", function(event) {
+      const rect = cameraCard.getBoundingClientRect();
+      setStickerPosition((event.clientX - rect.left) / rect.width, (event.clientY - rect.top) / rect.height);
+    });
+
+    document.querySelectorAll(".selfie-avatar-btn").forEach(function(button) {
+      button.addEventListener("click", function() {
+        document.querySelectorAll(".selfie-avatar-btn").forEach(function(item) {
+          item.classList.toggle("active", item === button);
+        });
+        selfieSticker.src = button.dataset.avatar;
+        selfieSticker.alt = button.dataset.name + " para selfie";
+        downloadPhoto.download = "selfie-" + button.dataset.name.toLowerCase() + "-pediatrics-home.png";
+        selfieStatus.textContent = button.dataset.name + " listo para la selfie.";
+      });
+    });
+
+    document.getElementById("openCameraBtn").addEventListener("click", async function() {
+      try {
+        if (selfieStream) selfieStream.getTracks().forEach(function(track) { track.stop(); });
+        selfieStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user" },
+          audio: false
+        });
+        selfieVideo.srcObject = selfieStream;
+        await selfieVideo.play();
+        selfiePlaceholder.style.display = "none";
+        selfiePreview.style.display = "none";
+        downloadPhoto.style.display = "none";
+        selfieStatus.textContent = "Camara lista. Toca la pantalla para mover el avatar.";
+      } catch (error) {
+        selfieStatus.textContent = "No se pudo abrir la camara. Pruebalo desde HTTPS o GitHub Pages.";
+        console.log("Error de camara:", error);
+      }
+    });
+
+    document.getElementById("takePhotoBtn").addEventListener("click", async function() {
+      if (!selfieVideo.videoWidth) {
+        selfieStatus.textContent = "Primero abre la camara.";
+        return;
+      }
+      const width = selfieVideo.videoWidth;
+      const height = selfieVideo.videoHeight;
+      selfieCanvas.width = width;
+      selfieCanvas.height = height;
+      const ctx = selfieCanvas.getContext("2d");
+      ctx.drawImage(selfieVideo, 0, 0, width, height);
+      await selfieSticker.decode().catch(function() {});
+      const ratio = selfieSticker.naturalHeight && selfieSticker.naturalWidth ? selfieSticker.naturalHeight / selfieSticker.naturalWidth : 1;
+      const stickerWidth = width * 0.34;
+      const stickerHeight = stickerWidth * ratio;
+      ctx.drawImage(
+        selfieSticker,
+        (stickerX * width) - stickerWidth / 2,
+        (stickerY * height) - stickerHeight / 2,
+        stickerWidth,
+        stickerHeight
+      );
+      const dataUrl = selfieCanvas.toDataURL("image/png");
+      selfiePreview.src = dataUrl;
+      selfiePreview.style.display = "block";
+      downloadPhoto.href = dataUrl;
+      downloadPhoto.style.display = "inline-flex";
+      selfieStatus.textContent = "Selfie tomada. Puedes descargarla.";
+    });
+
+    document.getElementById("resetPhotoBtn").addEventListener("click", function() {
+      selfiePreview.style.display = "none";
+      downloadPhoto.style.display = "none";
+      selfieStatus.textContent = "Camara lista.";
     });
 
 
