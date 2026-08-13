@@ -4,18 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pediatrics Home Peru - DANI AR</title>
-
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     :root {
       --teal: #00a7b5;
       --teal-dark: #007e8c;
-      --cyan: #dffbff;
       --pink: #f26aa8;
       --blue: #2aa7df;
       --purple: #8266d8;
@@ -23,97 +17,77 @@
       --mint: #12b981;
       --ink: #16313a;
       --muted: #61757c;
-      --card: rgba(255, 255, 255, 0.9);
     }
-
     body {
       margin: 0;
       min-height: 100vh;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background:
-        radial-gradient(circle at 18% 10%, rgba(242, 106, 168, 0.20), transparent 28%),
-        radial-gradient(circle at 82% 12%, rgba(42, 167, 223, 0.22), transparent 30%),
-        linear-gradient(180deg, #f7fdff 0%, #eef8f9 100%);
       color: var(--ink);
       text-align: center;
+      background:
+        radial-gradient(circle at 18% 8%, rgba(242,106,168,.22), transparent 26%),
+        radial-gradient(circle at 82% 14%, rgba(42,167,223,.24), transparent 28%),
+        linear-gradient(180deg, #f7fdff 0%, #eef8f9 100%);
     }
-
     header {
       padding: 16px 14px 14px;
       color: white;
       background: linear-gradient(135deg, var(--teal-dark), var(--teal));
-      box-shadow: 0 3px 14px rgba(0, 126, 140, 0.18);
+      box-shadow: 0 3px 14px rgba(0,126,140,.18);
     }
-
-    h1 {
-      margin: 0;
-      font-size: 21px;
-      line-height: 1.15;
-      letter-spacing: 0;
-    }
-
-    header p {
-      margin: 5px 0 0;
-      font-size: 13px;
-      font-weight: 650;
-      opacity: 0.94;
-    }
-
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: 22px; line-height: 1.15; letter-spacing: 0; }
+    header p { margin-top: 5px; font-size: 13px; font-weight: 700; opacity: .94; }
+    .wrap { width: min(780px, 100%); margin: 0 auto; padding: 14px 15px 28px; }
     .intro {
       display: grid;
       grid-template-columns: 76px 1fr;
       gap: 12px;
       align-items: center;
-      max-width: 720px;
-      margin: 14px auto 0;
-      padding: 0 15px;
+      margin-bottom: 14px;
       text-align: left;
     }
-
-    .intro img {
+    .intro img, .mascot-face {
       width: 76px;
       height: 76px;
       object-fit: cover;
       border: 3px solid white;
       border-radius: 18px;
-      box-shadow: 0 8px 22px rgba(0, 126, 140, 0.18);
+      background: white;
+      box-shadow: 0 8px 22px rgba(0,126,140,.18);
     }
-
-    .intro strong {
-      display: block;
+    .bubble {
+      padding: 13px 15px;
+      border: 1px solid rgba(0,167,181,.16);
+      border-radius: 18px;
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 8px 22px rgba(22,49,58,.09);
       color: var(--teal-dark);
-      font-size: 17px;
-      line-height: 1.15;
-    }
-
-    .intro span {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 13px;
+      font-size: 15px;
+      font-weight: 850;
       line-height: 1.35;
     }
-
-    .viewer-box {
+    .viewer-box, .panel {
       position: relative;
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 15px;
+      margin-bottom: 16px;
+      padding: 14px;
+      border: 1px solid rgba(0,126,140,.16);
+      border-radius: 22px;
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 14px 34px rgba(22,49,58,.12);
     }
-
     model-viewer {
       width: 100%;
-      height: min(68vh, 540px);
+      height: min(66vh, 540px);
       min-height: 460px;
       overflow: hidden;
-      border: 1px solid rgba(0, 126, 140, 0.18);
+      border: 1px solid rgba(0,126,140,.18);
       border-radius: 18px;
       background:
-        radial-gradient(circle at center 38%, rgba(255, 255, 255, 0.95), rgba(223, 251, 255, 0.74) 42%, rgba(219, 238, 242, 0.95) 100%);
-      box-shadow: 0 16px 38px rgba(22, 49, 58, 0.13);
+        radial-gradient(circle at center 38%, rgba(255,255,255,.96), rgba(223,251,255,.78) 45%, rgba(219,238,242,.96) 100%);
+      box-shadow: 0 16px 38px rgba(22,49,58,.13);
     }
-
-    .brand-panel {
+    .brand-panel, .pet-badge {
       position: absolute;
       left: 28px;
       top: 28px;
@@ -122,46 +96,38 @@
       align-items: center;
       gap: 8px;
       padding: 8px 10px;
-      border: 1px solid rgba(0, 167, 181, 0.24);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.86);
-      box-shadow: 0 8px 20px rgba(22, 49, 58, 0.12);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255,255,255,.88);
       color: var(--teal-dark);
       font-size: 12px;
-      font-weight: 900;
+      font-weight: 950;
+      box-shadow: 0 8px 20px rgba(22,49,58,.12);
     }
-
     .brand-dot {
       width: 12px;
       height: 12px;
       border-radius: 50%;
       background: conic-gradient(var(--teal), var(--pink), var(--blue), var(--purple), var(--teal));
     }
-
     .ar-card {
       width: 190px;
       padding: 11px 12px;
-      border: 2px solid rgba(0, 167, 181, 0.82);
+      border: 2px solid rgba(0,167,181,.82);
       border-radius: 16px;
-      background: var(--card);
-      box-shadow: 0 12px 28px rgba(0, 75, 88, 0.22);
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 12px 28px rgba(0,75,88,.22);
       text-align: center;
       transform: translate(-50%, -50%);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
-
     .ar-card img {
       width: 82px;
       max-width: 100%;
-      height: auto;
       display: block;
       margin: 0 auto 7px;
       border-radius: 8px;
     }
-
     .logo-fallback {
       width: 64px;
       height: 64px;
@@ -171,535 +137,151 @@
       border-radius: 16px;
       background: conic-gradient(var(--teal), var(--pink), var(--blue), var(--purple), var(--teal));
       color: white;
-      font-size: 16px;
       font-weight: 950;
     }
-
-    .text-main {
-      color: var(--teal-dark);
-      font-size: 15px;
-      font-weight: 900;
-      line-height: 1.12;
-      margin-bottom: 6px;
-    }
-
+    .text-main { color: var(--teal-dark); font-size: 15px; font-weight: 950; line-height: 1.12; margin-bottom: 6px; }
     .text-sub {
       color: #c83a69;
       font-size: 12px;
       font-weight: 850;
       line-height: 1.2;
-      background: rgba(255, 240, 246, 0.94);
+      background: rgba(255,240,246,.94);
       padding: 7px;
-      border: 1px dashed rgba(200, 58, 105, 0.72);
+      border: 1px dashed rgba(200,58,105,.72);
       border-radius: 10px;
     }
-
-    .audio-btn,
-    .ar-button,
-    .ghost-btn {
-      border: none;
+    button, .download-link {
+      border: 0;
+      border-radius: 999px;
       cursor: pointer;
-      font-weight: 900;
+      font: inherit;
+      font-weight: 950;
+      text-decoration: none;
     }
-
     .audio-btn {
       margin-top: 8px;
       padding: 8px 12px;
-      border-radius: 999px;
       background: #ff9f1c;
       color: white;
       font-size: 12px;
-      box-shadow: 0 4px 12px rgba(255, 159, 28, 0.25);
+      box-shadow: 0 4px 12px rgba(255,159,28,.25);
     }
-
+    .main-btn {
+      min-height: 48px;
+      padding: 13px 18px;
+      background: linear-gradient(135deg, var(--mint), var(--teal));
+      color: white;
+      box-shadow: 0 12px 26px rgba(0,167,181,.30);
+    }
+    .ghost-btn {
+      min-height: 42px;
+      padding: 10px 14px;
+      border: 1px solid rgba(0,126,140,.22);
+      background: rgba(255,255,255,.74);
+      color: var(--teal-dark);
+      font-size: 13px;
+    }
     .ar-button {
       position: absolute;
       left: 50%;
       bottom: 34px;
       z-index: 20;
       transform: translateX(-50%);
-      min-width: 250px;
-      padding: 15px 24px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #12b981, #00a7b5);
-      color: white;
-      font-size: 15px;
-      box-shadow: 0 12px 26px rgba(0, 167, 181, 0.32);
-      white-space: nowrap;
+      min-width: min(330px, calc(100% - 50px));
     }
-
-    .ghost-btn {
-      margin-top: 10px;
-      padding: 10px 14px;
-      border: 1px solid rgba(0, 126, 140, 0.22);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.72);
-      color: var(--teal-dark);
-      font-size: 13px;
-    }
-
-    .audio-status {
+    .audio-status, .status {
       min-height: 20px;
-      margin: 8px 15px 0;
+      margin: 8px 0 0;
       color: var(--muted);
       font-size: 13px;
       line-height: 1.35;
     }
-
-    .games {
-      max-width: 760px;
-      margin: 4px auto 28px;
-      padding: 0 15px 22px;
-    }
-
-    .games-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 8px 0 12px;
+    .section-title {
+      margin: 22px 0 12px;
       text-align: left;
     }
-
-    .games-title h2 {
-      margin: 0;
+    .section-title h2 {
       color: var(--teal-dark);
-      font-size: 25px;
+      font-size: 27px;
       line-height: 1.05;
       letter-spacing: 0;
     }
-
-    .games-title p {
-      margin: 4px 0 0;
+    .section-title p {
+      margin-top: 4px;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       line-height: 1.35;
     }
-
-    .points {
-      min-width: 82px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: var(--sun);
-      color: #5b3900;
+    .pet-grid, .selfie-tools, .action-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .pet-btn, .tool-btn {
+      min-height: 74px;
+      padding: 9px;
+      border: 2px solid rgba(0,167,181,.12);
+      border-radius: 18px;
+      background: white;
+      color: var(--teal-dark);
       font-size: 13px;
-      font-weight: 950;
-      box-shadow: 0 8px 18px rgba(255, 191, 63, 0.24);
+      box-shadow: 0 8px 18px rgba(22,49,58,.08);
+      white-space: normal;
     }
-
-    .mascot-row {
-      display: grid;
-      grid-template-columns: 88px 1fr;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 12px;
-      text-align: left;
-    }
-
-    .mascot-row img {
-      width: 88px;
-      height: 88px;
-      object-fit: cover;
-      border: 3px solid white;
-      border-radius: 22px;
-      background: white;
-      box-shadow: 0 10px 24px rgba(23, 49, 58, 0.13);
-    }
-
-    .mascot-says {
-      padding: 13px 15px;
-      border: 1px solid rgba(0, 167, 181, 0.16);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.82);
-      color: var(--teal-dark);
-      font-size: 15px;
-      font-weight: 850;
-      line-height: 1.35;
-      box-shadow: 0 8px 22px rgba(23, 49, 58, 0.09);
-    }
-
-    .game-tabs {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .game-tab,
-    .game-btn {
-      border: 0;
-      border-radius: 14px;
-      cursor: pointer;
-      font-weight: 950;
-    }
-
-    .game-tab {
-      min-height: 104px;
-      padding: 14px;
-      background: white;
-      color: var(--ink);
-      box-shadow: 0 6px 16px rgba(23, 49, 58, 0.08);
-      text-align: left;
-    }
-
-    .game-tab.active {
-      background: #fff8dd;
-      color: var(--ink);
-      outline: 3px solid var(--sun);
-    }
-
-    .game-tab strong {
-      display: block;
-      color: var(--teal-dark);
-      font-size: 18px;
-      line-height: 1.1;
-    }
-
-    .game-tab span {
-      display: block;
-      margin-top: 7px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.25;
-    }
-
-    .game-panel {
-      display: none;
-      padding: 15px;
-      border: 1px solid rgba(0, 167, 181, 0.16);
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.88);
-      box-shadow: 0 14px 32px rgba(23, 49, 58, 0.12);
-    }
-
-    .game-panel.active {
-      display: block;
-    }
-
-    .ar-mission-viewer {
-      position: relative;
-      margin-bottom: 12px;
-      border-radius: 20px;
-      overflow: hidden;
-      background: linear-gradient(180deg, #eefcff, #ffffff);
-      box-shadow: 0 14px 32px rgba(23, 49, 58, 0.12);
-    }
-
-    .ar-mission-viewer model-viewer {
-      height: 360px;
-      min-height: 360px;
-      border: 0;
-      border-radius: 20px;
-      box-shadow: none;
-      background:
-        radial-gradient(circle at center 42%, rgba(255, 255, 255, 0.96), rgba(223, 251, 255, 0.86) 48%, rgba(233, 248, 248, 0.98) 100%);
-    }
-
-    .lumi-badge {
-      position: absolute;
-      left: 14px;
-      top: 14px;
-      z-index: 4;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 11px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.9);
-      color: var(--teal-dark);
-      font-size: 12px;
-      font-weight: 950;
-      box-shadow: 0 8px 18px rgba(23, 49, 58, 0.12);
-    }
-
-    .lumi-badge span {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: var(--sun);
-      box-shadow: 0 0 12px rgba(255, 191, 63, 0.9);
-    }
-
-    .lumi-ar-button {
-      position: absolute;
-      left: 50%;
-      bottom: 18px;
-      z-index: 5;
-      transform: translateX(-50%);
-      min-width: min(310px, calc(100% - 34px));
-      min-height: 48px;
-      border: 0;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--purple), var(--teal));
-      color: white;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 950;
-      box-shadow: 0 12px 24px rgba(0, 126, 140, 0.28);
-    }
-
-    .back-games {
-      margin-top: 10px;
-      border: 1px solid rgba(0, 126, 140, 0.22);
-      background: rgba(255,255,255,0.76);
-      color: var(--teal-dark);
-    }
-
-    .mission-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .mission-card {
-      min-height: 90px;
-      padding: 10px;
-      border: 2px solid rgba(0, 167, 181, 0.12);
-      border-radius: 18px;
-      background: white;
-      color: var(--ink);
-      cursor: pointer;
-      box-shadow: 0 8px 18px rgba(23, 49, 58, 0.08);
-      text-align: left;
-    }
-
-    .mission-card.active {
+    .pet-btn.active, .tool-btn.active {
       border-color: var(--sun);
       background: #fff8dd;
     }
-
-    .mission-card strong {
-      display: block;
-      color: var(--teal-dark);
-      font-size: 15px;
-      line-height: 1.1;
+    .pet-viewer model-viewer {
+      height: 430px;
+      min-height: 430px;
     }
-
-    .mission-card span {
-      display: block;
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 750;
-      line-height: 1.25;
-    }
-
-    .mission-actions {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-
-    .flat-legacy {
-      display: none;
-    }
-
-    .panel-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
-      text-align: left;
-    }
-
-    .panel-head h3 {
-      margin: 0;
-      font-size: 22px;
-      letter-spacing: 0;
-    }
-
-    .panel-head p {
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-      line-height: 1.35;
-    }
-
-    .game-btn {
-      min-height: 42px;
-      padding: 0 15px;
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      color: white;
-      box-shadow: 0 8px 18px rgba(130, 102, 216, 0.22);
-      white-space: nowrap;
-    }
-
-    .stars-board {
-      position: relative;
-      height: 360px;
-      overflow: hidden;
-      border-radius: 18px;
-      background:
-        linear-gradient(rgba(255,255,255,0.18) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px),
-        radial-gradient(circle at 50% 24%, #245273, #102636 70%);
-      background-size: 38px 38px, 38px 38px, auto;
-    }
-
-    .hint {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      color: white;
-      font-weight: 950;
-      opacity: 0.82;
-    }
-
-    .star {
-      position: absolute;
-      width: 54px;
-      height: 54px;
-      border: 0;
-      border-radius: 50%;
-      background: var(--sun);
-      color: #5a3600;
-      font-size: 30px;
-      cursor: pointer;
-      box-shadow: 0 0 24px rgba(255, 191, 63, 0.68);
-      animation: pop 0.25s ease-out;
-    }
-
-    .puzzle-board {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(110px, 1fr));
-      gap: 10px;
-    }
-
-    .piece {
-      min-height: 108px;
-      border: 0;
-      border-radius: 18px;
-      color: white;
-      cursor: pointer;
-      font-size: 18px;
-      font-weight: 950;
-      box-shadow: 0 10px 22px rgba(23, 49, 58, 0.14);
-    }
-
-    .piece[data-color="teal"] { background: var(--teal); }
-    .piece[data-color="pink"] { background: var(--pink); }
-    .piece[data-color="blue"] { background: var(--blue); }
-    .piece[data-color="purple"] { background: var(--purple); }
-
-    .piece.correct {
-      outline: 5px solid var(--sun);
-    }
-
-    .breath-stage {
-      display: grid;
-      place-items: center;
-      min-height: 340px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, #e7fbff, #ffffff);
-    }
-
-    .breath-orbit {
-      display: grid;
-      place-items: center;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: rgba(0, 167, 181, 0.08);
-    }
-
-    .breath-circle {
-      display: grid;
-      place-items: center;
-      width: 124px;
-      height: 124px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--teal), var(--mint));
-      color: white;
-      font-size: 22px;
-      font-weight: 950;
-      box-shadow: 0 12px 28px rgba(0, 167, 181, 0.26);
-      transition: transform 3s ease;
-    }
-
-    .breath-circle.grow {
-      transform: scale(1.55);
-    }
-
-    .breath-stage p {
-      max-width: 280px;
-      color: var(--muted);
-      font-weight: 800;
-      line-height: 1.35;
-      text-align: center;
-    }
-
-    .photo-card {
-      position: relative;
-      min-height: 340px;
-      overflow: hidden;
-      border-radius: 18px;
-      background:
-        radial-gradient(circle at 30% 18%, rgba(255,255,255,0.95), transparent 24%),
-        linear-gradient(135deg, #dffbff, #fff0f7 52%, #f7f0ff);
-    }
-
+    .pet-badge { top: 26px; }
     .camera-card {
       position: relative;
-      min-height: 420px;
+      height: 460px;
       overflow: hidden;
       border-radius: 18px;
       background: #17323a;
     }
-
-    .camera-card video,
-    .camera-card canvas,
-    .camera-card img {
+    .camera-card video, .camera-card canvas, .camera-card img.preview {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-
     .camera-empty {
       position: absolute;
       inset: 0;
       display: grid;
       place-items: center;
-      padding: 22px;
+      padding: 24px;
       color: white;
       font-size: 17px;
-      font-weight: 900;
+      font-weight: 950;
       line-height: 1.35;
-      background:
-        radial-gradient(circle at 28% 20%, rgba(255,255,255,0.13), transparent 26%),
-        linear-gradient(135deg, #17323a, #007e8c);
+      background: linear-gradient(135deg, #17323a, var(--teal-dark));
     }
-
-    .camera-overlay {
+    .camera-overlay { position: absolute; inset: 0; pointer-events: none; }
+    .camera-dani {
       position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .camera-sticker {
-      position: absolute;
-      left: 14px;
-      bottom: 14px;
-      width: 122px;
+      left: 12px;
+      bottom: 12px;
+      width: 120px;
       border-radius: 20px;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.25));
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
     }
-
     .camera-lumi {
       position: absolute;
       right: 10px;
-      bottom: 16px;
+      bottom: 14px;
       width: 104px;
       border-radius: 20px;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.22));
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.22));
     }
-
     .camera-badge {
       position: absolute;
       left: 50%;
@@ -709,416 +291,165 @@
       padding: 10px 14px;
       border: 3px solid white;
       border-radius: 18px;
-      background: rgba(255,255,255,0.82);
+      background: rgba(255,255,255,.84);
       color: var(--teal-dark);
       font-size: 20px;
       font-weight: 950;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.16);
+      box-shadow: 0 10px 24px rgba(0,0,0,.16);
     }
-
-    .camera-actions {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .capture-link {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      border-radius: 14px;
-      background: var(--mint);
-      color: white;
-      font-size: 14px;
-      font-weight: 950;
-      text-decoration: none;
-      box-shadow: 0 8px 18px rgba(18, 185, 129, 0.22);
-    }
-
     .recording-dot {
       position: absolute;
       left: 14px;
       top: 14px;
       display: none;
-      align-items: center;
-      gap: 7px;
       padding: 8px 10px;
       border-radius: 999px;
-      background: rgba(200, 58, 105, 0.92);
+      background: rgba(200,58,105,.92);
       color: white;
       font-size: 12px;
       font-weight: 950;
     }
-
-    .recording-dot.active {
-      display: flex;
+    .recording-dot.active { display: block; }
+    .download-link {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      background: var(--mint);
+      color: white;
+      box-shadow: 0 8px 18px rgba(18,185,129,.22);
     }
-
-    .photo-dani {
-      position: absolute;
-      left: 38%;
-      bottom: -42px;
-      width: min(310px, 72%);
-      transform: translateX(-50%);
-    }
-
-    .photo-lumi {
-      position: absolute;
-      right: 8px;
-      bottom: 10px;
-      width: min(170px, 42%);
-      border-radius: 24px;
-      filter: drop-shadow(0 10px 18px rgba(23, 49, 58, 0.15));
-    }
-
-    .photo-frame {
-      position: absolute;
-      left: 50%;
-      top: 18px;
-      transform: translateX(-50%);
-      min-width: min(340px, calc(100% - 36px));
-      padding: 12px 15px;
-      border: 3px solid white;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.74);
-      box-shadow: 0 10px 24px rgba(23, 49, 58, 0.12);
-    }
-
-    .photo-frame span {
-      color: var(--teal-dark);
-      font-size: 22px;
-      font-weight: 950;
-    }
-
     #mediaBienvenida {
       position: fixed;
       left: 0;
       bottom: 0;
       width: 1px;
       height: 1px;
-      opacity: 0.01;
+      opacity: .01;
       pointer-events: none;
     }
-
-    @media (max-width: 520px) {
-      .intro {
-        grid-template-columns: 64px 1fr;
-      }
-
-      .intro img {
-        width: 64px;
-        height: 64px;
-        border-radius: 15px;
-      }
-
-      model-viewer {
-        min-height: 500px;
-      }
-
-      .brand-panel {
-        left: 24px;
-        top: 24px;
-      }
-
-      .ar-card {
-        width: 170px;
-      }
-
-      .ar-button {
-        min-width: calc(100% - 58px);
-        padding-inline: 14px;
-      }
-
-      .games-title,
-      .panel-head {
-        flex-direction: column;
-      }
-
-      .game-tabs {
-        grid-template-columns: 1fr;
-      }
-
-      .mission-grid,
-      .mission-actions {
-        grid-template-columns: 1fr;
-      }
-
-      .game-btn {
-        width: 100%;
-      }
-
-      .stars-board,
-      .breath-stage,
-      .photo-card,
-      .camera-card {
-        height: 360px;
-      }
-
-      .camera-actions {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @keyframes pop {
-      from { transform: scale(0.3); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    @media (max-width: 560px) {
+      .wrap { padding: 12px 10px 24px; }
+      .intro { grid-template-columns: 64px 1fr; }
+      .intro img, .mascot-face { width: 64px; height: 64px; border-radius: 15px; }
+      model-viewer { min-height: 500px; }
+      .pet-grid, .selfie-tools, .action-grid { grid-template-columns: repeat(2, 1fr); }
+      .pet-viewer model-viewer { height: 390px; min-height: 390px; }
+      .camera-card { height: 430px; }
     }
   </style>
 </head>
-
 <body>
   <header>
     <h1>Pediatrics Home Peru</h1>
     <p>DANI, tu explorador pediatrico de llegada</p>
   </header>
 
-  <section class="intro" aria-label="Presentacion de DANI">
-    <img src="dani-astronauta-pediatrico.png" alt="DANI explorador pediatrico">
-    <div>
-      <strong>Hola, soy DANI.</strong>
-      <span>Te ayudo a ubicar Pediatrics Home Peru y llegar tranquilo al consultorio.</span>
-    </div>
-  </section>
-
-  <video id="mediaBienvenida" src="bienvenida.mp4" preload="auto" playsinline></video>
-
-  <div class="viewer-box">
-    <div class="brand-panel" aria-hidden="true">
-      <span class="brand-dot"></span>
-      DANI AR
-    </div>
-
-    <model-viewer
-      id="modelViewer"
-      src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-      alt="DANI explorador pediatrico en realidad aumentada"
-      ar
-      ar-modes="webxr scene-viewer quick-look"
-      camera-controls
-      auto-rotate
-      shadow-intensity="1"
-      exposure="1"
-      camera-orbit="28deg 74deg 3.1m"
-      field-of-view="30deg"
-      scale="1.18 1.18 1.18">
-
-      <div
-        slot="hotspot-cartel"
-        class="ar-card"
-        data-position="1.22 1.35 0"
-        data-normal="0 0 1">
-
-        <img id="logoImg" src="logo.jpeg" alt="Logo Pediatrics Home Peru">
-        <div id="logoFallback" class="logo-fallback" aria-hidden="true">PH</div>
-        <div class="text-main">Pediatrics<br>Home Peru</div>
-        <div class="text-sub">Tocar intercomunicador 102</div>
-
-        <button id="audioBtn" class="audio-btn" type="button">
-          Escuchar a DANI
-        </button>
-      </div>
-    </model-viewer>
-
-    <button id="arBtn" class="ar-button" type="button">
-      VER A DANI EN MI ESPACIO
-    </button>
-
-    <button id="testAudioBtn" class="ghost-btn" type="button">
-      Probar audio
-    </button>
-
-    <p id="audioStatus" class="audio-status"></p>
-  </div>
-
-  <section class="games" aria-label="Juegos de sala de espera">
-    <div class="games-title">
-      <div>
-        <h2>Juegos de espera</h2>
-        <p>DANI y LUMI acompanan a los ninos mientras esperan.</p>
-      </div>
-      <div class="points" aria-live="polite"><span id="gameScore">0</span> pts</div>
-    </div>
-
-    <div class="mascot-row">
-      <img src="lumi-mascota.png" alt="LUMI mascota pediatrica">
-      <p class="mascot-says" id="lumiMessage">Hola, soy LUMI. Ahora tambien puedo aparecer en 3D para jugar en tu espacio.</p>
-    </div>
-
-    <div class="game-tabs" id="gamesMenu" aria-label="Juegos AR disponibles">
-      <button class="game-tab active" data-game="ar" type="button">
-        <strong>LUMI 3D</strong>
-        <span>Mascota en realidad aumentada con misiones.</span>
-      </button>
-      <button class="game-tab" data-game="stars" type="button">
-        <strong>Busca estrellas AR</strong>
-        <span>Abre a LUMI y encuentra objetos brillantes en la sala.</span>
-      </button>
-      <button class="game-tab" data-game="puzzle" type="button">
-        <strong>Colores AR</strong>
-        <span>Encuentra los colores del logo alrededor tuyo.</span>
-      </button>
-      <button class="game-tab" data-game="breath" type="button">
-        <strong>Respira AR</strong>
-        <span>LUMI te acompana en una pausa tranquila.</span>
-      </button>
-      <button class="game-tab" data-game="photo" type="button">
-        <strong>Foto AR</strong>
-        <span>Foto o video con DANI y LUMI.</span>
-      </button>
-    </div>
-
-    <section class="game-panel active" id="arGame">
-      <div class="panel-head">
-        <div>
-          <h3>Misiones AR con LUMI 3D</h3>
-          <p>Elige una mision, abre a LUMI en tu espacio y completa el reto.</p>
-        </div>
-        <button class="game-btn" id="missionDone" type="button">Completar</button>
-      </div>
-
-      <div class="ar-mission-viewer">
-        <div class="lumi-badge"><span></span>LUMI 3D</div>
-        <model-viewer
-          id="lumiViewer"
-          src="lumi.glb"
-          alt="LUMI, mascota 3D para juegos de realidad aumentada"
-          ar
-          ar-modes="webxr scene-viewer quick-look"
-          camera-controls
-          auto-rotate
-          shadow-intensity="1"
-          exposure="1"
-          scale="1.2 1.2 1.2"
-          camera-orbit="20deg 72deg 3.2m"
-          field-of-view="28deg">
-        </model-viewer>
-        <button id="lumiArBtn" class="lumi-ar-button" type="button">VER A LUMI 3D EN MI ESPACIO</button>
-      </div>
-
-      <div class="mission-grid">
-        <button class="mission-card active" data-mission="stars" data-animation="Dance" type="button">
-          <strong>Busca 3 estrellas</strong>
-          <span>Mira alrededor y senala tres objetos brillantes.</span>
-        </button>
-        <button class="mission-card" data-mission="colors" data-animation="Wave" type="button">
-          <strong>Color turquesa</strong>
-          <span>Encuentra algo del color de Pediatrics Home.</span>
-        </button>
-        <button class="mission-card" data-mission="brave" data-animation="Jump" type="button">
-          <strong>Pose valiente</strong>
-          <span>Haz una pose con LUMI y gana puntos.</span>
-        </button>
-      </div>
-
-      <div class="mission-actions">
-        <button class="game-btn" id="missionHint" type="button">Pista</button>
-        <button class="game-btn" id="missionNext" type="button">Otra mision</button>
-      </div>
-      <button class="game-btn back-games" type="button">Volver a elegir juego</button>
+  <main class="wrap">
+    <section class="intro" aria-label="Presentacion de DANI">
+      <img src="dani-astronauta-pediatrico.png" alt="DANI explorador pediatrico">
+      <p class="bubble">Hola, soy DANI. Primero te ayudo a ubicar el consultorio; luego puedes jugar con mascotas 3D y tomarte una selfie.</p>
     </section>
 
-    <section class="game-panel" id="starsGame">
-      <div class="panel-head">
-        <div>
-          <h3>Busca estrellas AR</h3>
-          <p>Abre a LUMI 3D, mira la sala y encuentra tres objetos brillantes.</p>
+    <video id="mediaBienvenida" src="bienvenida.mp4" preload="auto" playsinline></video>
+
+    <section class="viewer-box" aria-label="Bienvenida AR">
+      <div class="brand-panel"><span class="brand-dot"></span>DANI AR</div>
+      <model-viewer
+        id="modelViewer"
+        src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+        alt="DANI explorador pediatrico en realidad aumentada"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        auto-rotate
+        shadow-intensity="1"
+        exposure="1"
+        camera-orbit="28deg 74deg 3.1m"
+        field-of-view="30deg"
+        scale="1.18 1.18 1.18">
+        <div slot="hotspot-cartel" class="ar-card" data-position="1.22 1.35 0" data-normal="0 0 1">
+          <img id="logoImg" src="logo.jpeg" alt="Logo Pediatrics Home Peru">
+          <div id="logoFallback" class="logo-fallback">PH</div>
+          <div class="text-main">Pediatrics<br>Home Peru</div>
+          <div class="text-sub">Tocar intercomunicador 102</div>
+          <button id="audioBtn" class="audio-btn" type="button">Escuchar a DANI</button>
         </div>
-        <button class="game-btn ar-open-game" data-target="lumiViewerStars" type="button">Abrir AR</button>
-      </div>
-      <div class="ar-mission-viewer">
-        <div class="lumi-badge"><span></span>LUMI busca estrellas</div>
-        <model-viewer id="lumiViewerStars" src="lumi.glb" alt="LUMI busca estrellas en AR" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate shadow-intensity="1" exposure="1" scale="1.2 1.2 1.2" camera-orbit="20deg 72deg 3.2m" field-of-view="28deg"></model-viewer>
-      </div>
-      <div class="mission-actions">
-        <button class="game-btn complete-game" data-points="30" data-message="¡Encontraste tres estrellas con LUMI!" type="button">Complete 3 estrellas</button>
-        <button class="game-btn back-games" type="button">Volver</button>
-      </div>
+      </model-viewer>
+      <button id="arBtn" class="main-btn ar-button" type="button">VER A DANI EN MI ESPACIO</button>
+      <button id="testAudioBtn" class="ghost-btn" type="button">Probar audio</button>
+      <p id="audioStatus" class="audio-status"></p>
     </section>
 
-    <section class="game-panel" id="puzzleGame">
-      <div class="panel-head">
-        <div>
-          <h3>Colores AR</h3>
-          <p>Abre a LUMI 3D y encuentra turquesa, rosa, azul y morado en la sala.</p>
-        </div>
-        <button class="game-btn ar-open-game" data-target="lumiViewerColors" type="button">Abrir AR</button>
-      </div>
-      <div class="ar-mission-viewer">
-        <div class="lumi-badge"><span></span>LUMI colores</div>
-        <model-viewer id="lumiViewerColors" src="lumi.glb" alt="LUMI colores en AR" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate shadow-intensity="1" exposure="1" scale="1.2 1.2 1.2" camera-orbit="20deg 72deg 3.2m" field-of-view="28deg"></model-viewer>
-      </div>
-      <div class="mission-grid">
-        <button class="mission-card complete-game" data-points="10" data-message="Turquesa encontrado." type="button"><strong>Turquesa</strong><span>Color de DANI.</span></button>
-        <button class="mission-card complete-game" data-points="10" data-message="Rosa encontrado." type="button"><strong>Rosa</strong><span>Color del logo.</span></button>
-        <button class="mission-card complete-game" data-points="10" data-message="Azul encontrado." type="button"><strong>Azul</strong><span>Color del logo.</span></button>
-      </div>
-      <button class="game-btn back-games" type="button">Volver</button>
+    <section class="section-title">
+      <h2>Mascotas 3D en AR</h2>
+      <p>Elige una mascota y abre la camara AR. Sin puntos ni pantallas de juego: todo es para ver, interactuar y jugar en el espacio real.</p>
     </section>
 
-    <section class="game-panel" id="breathGame">
-      <div class="panel-head">
-        <div>
-          <h3>Respira AR con LUMI</h3>
-          <p>Abre a LUMI en tu espacio y sigue la guia de respiracion.</p>
-        </div>
-        <button class="game-btn ar-open-game" data-target="lumiViewerBreath" type="button">Abrir AR</button>
-      </div>
-      <div class="ar-mission-viewer">
-        <div class="lumi-badge"><span></span>LUMI respira</div>
-        <model-viewer id="lumiViewerBreath" src="lumi.glb" alt="LUMI respiracion en AR" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate shadow-intensity="1" exposure="1" scale="1.2 1.2 1.2" camera-orbit="20deg 72deg 3.2m" field-of-view="28deg"></model-viewer>
-      </div>
-      <div class="breath-stage flat-legacy">
-        <div class="breath-orbit">
-          <div class="breath-circle" id="breathCircle">
-            <span id="breathWord">Listo</span>
-          </div>
-        </div>
-        <p id="breathStep">DANI te guia para sentirte tranquilo.</p>
-      </div>
-      <div class="mission-actions">
-        <button class="game-btn" id="breathBtn" type="button">Iniciar guia</button>
-        <button class="game-btn back-games" type="button">Volver</button>
-      </div>
+    <section class="intro">
+      <img src="lumi-mascota.png" alt="LUMI mascota" class="mascot-face">
+      <p class="bubble" id="petMessage">Elige LUMI, NUBI, MICHI o COCO. Luego toca “Ver mascota en mi espacio”.</p>
     </section>
 
-    <section class="game-panel" id="photoGame">
-      <div class="panel-head">
-        <div>
-          <h3>Foto o video con DANI</h3>
-          <p>Abre la camara, toma una foto o graba un video corto.</p>
-        </div>
-        <button class="game-btn" id="changeSticker" type="button">Cambiar</button>
+    <section class="panel pet-viewer" aria-label="Mascotas AR">
+      <div class="pet-grid">
+        <button class="pet-btn active" data-model="lumi.glb" data-name="LUMI" type="button">LUMI<br>estrella</button>
+        <button class="pet-btn" data-model="nubi-perrito.glb" data-name="NUBI" type="button">NUBI<br>perrito</button>
+        <button class="pet-btn" data-model="michi-gatito.glb" data-name="MICHI" type="button">MICHI<br>gatito</button>
+        <button class="pet-btn" data-model="coco-conejito.glb" data-name="COCO" type="button">COCO<br>conejito</button>
       </div>
-      <div class="camera-card" id="cameraCard">
+      <div class="pet-badge"><span class="brand-dot"></span><span id="petNameBadge">LUMI 3D</span></div>
+      <model-viewer
+        id="petViewer"
+        src="lumi.glb"
+        alt="LUMI mascota 3D en realidad aumentada"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        auto-rotate
+        shadow-intensity="1"
+        exposure="1"
+        scale="1.2 1.2 1.2"
+        camera-orbit="20deg 72deg 3.2m"
+        field-of-view="28deg">
+      </model-viewer>
+      <button id="petArBtn" class="main-btn" type="button">VER MASCOTA EN MI ESPACIO</button>
+      <p class="status" id="petStatus"></p>
+    </section>
+
+    <section class="section-title">
+      <h2>Selfie con accesorios</h2>
+      <p>Para Android e iPhone: abre la camara web, elige casco, estetoscopio, lentes o estrella, y descarga foto o video.</p>
+    </section>
+
+    <section class="panel" aria-label="Selfie con DANI">
+      <div class="selfie-tools">
+        <button class="tool-btn active" data-accessory="casco" type="button">Casco</button>
+        <button class="tool-btn" data-accessory="estetoscopio" type="button">Estetoscopio</button>
+        <button class="tool-btn" data-accessory="lentes" type="button">Lentes</button>
+        <button class="tool-btn" data-accessory="estrella" type="button">Estrella</button>
+      </div>
+      <div class="camera-card">
         <video id="photoVideo" autoplay muted playsinline></video>
         <canvas id="photoCanvas"></canvas>
-        <img id="photoPreview" alt="Foto tomada con DANI">
-        <div class="camera-empty" id="cameraEmpty">Activa la camara para tomarte una foto con DANI y LUMI.</div>
-        <div class="recording-dot" id="recordingDot">● Grabando</div>
-        <div class="camera-overlay" id="cameraOverlay">
-          <div class="camera-badge"><span id="cameraSticker">Valiente paciente</span></div>
-          <img src="dani-astronauta-pediatrico.png" alt="" class="camera-sticker">
+        <img id="photoPreview" class="preview" alt="Foto tomada con DANI">
+        <div class="camera-empty" id="cameraEmpty">Activa la camara para tomarte una foto con DANI.</div>
+        <div class="recording-dot" id="recordingDot">Grabando</div>
+        <div class="camera-overlay">
+          <div class="camera-badge"><span id="cameraSticker">Casco explorador</span></div>
+          <img src="dani-astronauta-pediatrico.png" alt="" class="camera-dani">
           <img src="lumi-mascota.png" alt="" class="camera-lumi">
         </div>
       </div>
-      <div class="camera-actions">
-        <button class="game-btn" id="openCamera" type="button">Abrir camara</button>
-        <button class="game-btn" id="takePhoto" type="button">Tomar foto</button>
-        <button class="game-btn" id="recordVideo" type="button">Grabar video</button>
-        <a class="capture-link" id="downloadCapture" download="foto-dani-pediatrics.png">Descargar</a>
+      <div class="action-grid">
+        <button class="main-btn" id="openCamera" type="button">Abrir camara</button>
+        <button class="main-btn" id="takePhoto" type="button">Tomar foto</button>
+        <button class="main-btn" id="recordVideo" type="button">Grabar video</button>
+        <a class="download-link" id="downloadCapture" download="foto-dani-pediatrics.png">Descargar</a>
       </div>
-      <button class="game-btn back-games" type="button">Volver a elegir juego</button>
-      <div class="photo-card flat-legacy">
-        <img src="dani-astronauta-pediatrico.png" alt="DANI para foto" class="photo-dani">
-        <img src="lumi-mascota.png" alt="LUMI para foto" class="photo-lumi">
-        <div class="photo-frame">
-          <span id="sticker">Valiente paciente</span>
-        </div>
-      </div>
+      <p class="status" id="selfieStatus"></p>
     </section>
-  </section>
+  </main>
 
   <script>
     const modelViewer = document.getElementById("modelViewer");
@@ -1141,389 +472,103 @@
         media.currentTime = 0;
         media.muted = false;
         media.volume = 1;
-
         await media.play();
-
         audioStatus.textContent = "DANI esta hablando...";
         return true;
       } catch (error) {
         audioStatus.textContent = "No se pudo reproducir el audio. Revisa bienvenida.mp4.";
         console.log("Error de audio:", error);
-        console.log("Ruta usada:", media.currentSrc);
         return false;
       }
     }
 
     testAudioBtn.addEventListener("click", reproducirAudio);
-
     audioBtn.addEventListener("click", function(event) {
       event.preventDefault();
       event.stopPropagation();
       reproducirAudio();
     });
-
     arBtn.addEventListener("click", async function() {
       await reproducirAudio();
-
       setTimeout(function() {
-        if (modelViewer && modelViewer.activateAR) {
-          modelViewer.activateAR();
-        } else {
-          audioStatus.textContent = "AR todavia no esta listo. Espera un segundo y vuelve a tocar.";
-        }
+        if (modelViewer && modelViewer.activateAR) modelViewer.activateAR();
+        else audioStatus.textContent = "AR todavia no esta listo. Espera un segundo.";
       }, 650);
     });
+    media.addEventListener("ended", function() { audioStatus.textContent = ""; });
+    media.addEventListener("error", function() { audioStatus.textContent = "No se encontro bienvenida.mp4."; });
 
-    media.addEventListener("loadeddata", function() {
-      audioStatus.textContent = "Audio listo.";
-    });
+    const petViewer = document.getElementById("petViewer");
+    const petMessage = document.getElementById("petMessage");
+    const petStatus = document.getElementById("petStatus");
+    const petNameBadge = document.getElementById("petNameBadge");
+    let currentPetName = "LUMI";
 
-    media.addEventListener("ended", function() {
-      audioStatus.textContent = "";
-    });
-
-    media.addEventListener("error", function() {
-      audioStatus.textContent = "No se encontro o no se pudo leer bienvenida.mp4.";
-      console.log("Error media:", media.error);
-      console.log("Ruta:", media.currentSrc);
-    });
-
-    const gameTabs = document.querySelectorAll(".game-tab");
-    const gamePanels = {
-      stars: document.getElementById("starsGame"),
-      puzzle: document.getElementById("puzzleGame"),
-      breath: document.getElementById("breathGame"),
-      photo: document.getElementById("photoGame"),
-      ar: document.getElementById("arGame")
-    };
-    const lumiMessage = document.getElementById("lumiMessage");
-    const gameScore = document.getElementById("gameScore");
-    const gameMessages = {
-      stars: "Atrapa estrellas conmigo. Cada toque suma puntos.",
-      puzzle: "Arma los colores del logo y descubre el sello de Pediatrics Home.",
-      breath: "Respiremos juntos. Esto ayuda antes de entrar a consulta.",
-      photo: "Elige un sticker para una foto con DANI y LUMI.",
-      ar: "Abre a LUMI 3D en realidad aumentada y completa una mision."
-    };
-
-    function showGame(game) {
-      gameTabs.forEach(function(item) {
-        item.classList.toggle("active", item.dataset.game === game);
-      });
-      Object.keys(gamePanels).forEach(function(key) {
-        gamePanels[key].classList.toggle("active", key === game);
-      });
-      lumiMessage.textContent = gameMessages[game];
-      document.getElementById("gamesMenu").scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    gameTabs.forEach(function(tab) {
-      tab.addEventListener("click", function() {
-        showGame(tab.dataset.game);
-      });
-    });
-
-    document.querySelectorAll(".back-games").forEach(function(button) {
+    document.querySelectorAll(".pet-btn").forEach(function(button) {
       button.addEventListener("click", function() {
-        document.getElementById("gamesMenu").scrollIntoView({ behavior: "smooth", block: "center" });
-        lumiMessage.textContent = "Elige otra mision AR con LUMI.";
-      });
-    });
-
-    document.querySelectorAll(".ar-open-game").forEach(function(button) {
-      button.addEventListener("click", function() {
-        const viewer = document.getElementById(button.dataset.target);
-        if (viewer && viewer.activateAR) {
-          viewer.activateAR();
-          lumiMessage.textContent = "LUMI esta entrando a tu espacio. Completa el reto y vuelve por tus puntos.";
-        } else {
-          lumiMessage.textContent = "LUMI 3D todavia esta cargando. Espera un segundo.";
-        }
-      });
-    });
-
-    document.querySelectorAll(".complete-game").forEach(function(button) {
-      button.addEventListener("click", function() {
-        addScore(Number(button.dataset.points || 10));
-        lumiMessage.textContent = button.dataset.message || "Mision completada con LUMI.";
-      });
-    });
-
-    const lumiViewer = document.getElementById("lumiViewer");
-    const lumiArBtn = document.getElementById("lumiArBtn");
-    const missionCards = Array.from(document.querySelectorAll(".mission-card"));
-    const missionDone = document.getElementById("missionDone");
-    const missionHint = document.getElementById("missionHint");
-    const missionNext = document.getElementById("missionNext");
-    const missionHints = {
-      stars: "Pista: busca luces, reflejos o dibujos con forma de estrella.",
-      colors: "Pista: el turquesa se parece al color de DANI y Pediatrics Home.",
-      brave: "Pista: ponte derecho, sonrie y levanta una mano como explorador."
-    };
-    let activeMissionIndex = 0;
-
-    function setMission(index) {
-      activeMissionIndex = index;
-      missionCards.forEach(function(card, cardIndex) {
-        card.classList.toggle("active", cardIndex === index);
-      });
-      const card = missionCards[index];
-      lumiMessage.textContent = card.querySelector("strong").textContent + ": " + card.querySelector("span").textContent;
-    }
-
-    missionCards.forEach(function(card, index) {
-      card.addEventListener("click", function() {
-        setMission(index);
-      });
-    });
-
-    lumiArBtn.addEventListener("click", function() {
-      if (lumiViewer && lumiViewer.activateAR) {
-        lumiViewer.activateAR();
-        lumiMessage.textContent = "LUMI esta entrando a tu espacio. Completa la mision y vuelve por tus puntos.";
-      } else {
-        lumiMessage.textContent = "LUMI todavia esta cargando. Espera un segundo y vuelve a tocar.";
-      }
-    });
-
-    missionDone.addEventListener("click", function() {
-      addScore(30);
-      lumiMessage.textContent = "¡Mision completada! Ganaste 30 puntos con LUMI.";
-    });
-
-    missionHint.addEventListener("click", function() {
-      const mission = missionCards[activeMissionIndex].dataset.mission;
-      lumiMessage.textContent = missionHints[mission];
-    });
-
-    missionNext.addEventListener("click", function() {
-      setMission((activeMissionIndex + 1) % missionCards.length);
-    });
-
-    let score = 0;
-    let starsTimer = null;
-    const starsBoard = document.getElementById("starsBoard");
-    const startStars = document.getElementById("startStars");
-
-    function addScore(points) {
-      score += points;
-      gameScore.textContent = score;
-    }
-
-    function spawnStar() {
-      const star = document.createElement("button");
-      star.className = "star";
-      star.type = "button";
-      star.textContent = "★";
-      star.setAttribute("aria-label", "Atrapar estrella");
-
-      const size = 54;
-      const maxX = starsBoard.clientWidth - size;
-      const maxY = starsBoard.clientHeight - size;
-      star.style.left = Math.random() * maxX + "px";
-      star.style.top = Math.random() * maxY + "px";
-
-      star.addEventListener("click", function() {
-        addScore(10);
-        lumiMessage.textContent = score >= 100 ? "¡Excelente explorador! LUMI esta feliz." : "¡Muy bien! Sigue atrapando estrellas.";
-        star.remove();
-      });
-
-      starsBoard.appendChild(star);
-      setTimeout(function() {
-        star.remove();
-      }, 1300);
-    }
-
-    startStars.addEventListener("click", function() {
-      score = 0;
-      gameScore.textContent = score;
-      starsBoard.innerHTML = "";
-      lumiMessage.textContent = "Listo, toca todas las estrellas que aparezcan.";
-      clearInterval(starsTimer);
-      starsTimer = setInterval(spawnStar, 720);
-      setTimeout(function() {
-        clearInterval(starsTimer);
-        lumiMessage.textContent = "Juego terminado. Lograste " + score + " puntos.";
-      }, 20000);
-    });
-
-    const puzzleBoard = document.getElementById("puzzleBoard");
-    const shufflePuzzle = document.getElementById("shufflePuzzle");
-    const puzzleColors = [
-      { key: "teal", label: "Turquesa", order: 0 },
-      { key: "pink", label: "Rosa", order: 1 },
-      { key: "blue", label: "Azul", order: 2 },
-      { key: "purple", label: "Morado", order: 3 }
-    ];
-    let selectedPiece = null;
-
-    function renderPuzzle(items) {
-      puzzleBoard.innerHTML = "";
-      items.forEach(function(item, index) {
-        const piece = document.createElement("button");
-        piece.className = "piece";
-        piece.type = "button";
-        piece.dataset.color = item.key;
-        piece.dataset.order = item.order;
-        piece.textContent = item.label;
-        piece.addEventListener("click", function() {
-          selectPiece(piece);
+        currentPetName = button.dataset.name;
+        document.querySelectorAll(".pet-btn").forEach(function(item) {
+          item.classList.toggle("active", item === button);
         });
-        if (Number(piece.dataset.order) === index) {
-          piece.classList.add("correct");
-        }
-        puzzleBoard.appendChild(piece);
+        petViewer.setAttribute("src", button.dataset.model);
+        petViewer.setAttribute("alt", currentPetName + " mascota 3D en realidad aumentada");
+        petNameBadge.textContent = currentPetName + " 3D";
+        petMessage.textContent = currentPetName + " esta listo para aparecer en tu espacio.";
       });
-    }
-
-    function selectPiece(piece) {
-      if (!selectedPiece) {
-        selectedPiece = piece;
-        piece.style.transform = "scale(0.96)";
-        return;
-      }
-
-      const firstText = selectedPiece.textContent;
-      const firstColor = selectedPiece.dataset.color;
-      const firstOrder = selectedPiece.dataset.order;
-
-      selectedPiece.textContent = piece.textContent;
-      selectedPiece.dataset.color = piece.dataset.color;
-      selectedPiece.dataset.order = piece.dataset.order;
-
-      piece.textContent = firstText;
-      piece.dataset.color = firstColor;
-      piece.dataset.order = firstOrder;
-
-      selectedPiece.style.transform = "";
-      selectedPiece = null;
-      updatePuzzleState();
-    }
-
-    function updatePuzzleState() {
-      const pieces = Array.from(document.querySelectorAll(".piece"));
-      let correct = 0;
-      pieces.forEach(function(piece, index) {
-        const isCorrect = Number(piece.dataset.order) === index;
-        piece.classList.toggle("correct", isCorrect);
-        if (isCorrect) correct += 1;
-      });
-      if (correct === pieces.length) {
-        addScore(40);
-        lumiMessage.textContent = "¡Logo armado! Ganaste puntos de explorador.";
-      }
-    }
-
-    shufflePuzzle.addEventListener("click", function() {
-      const shuffled = puzzleColors.slice().sort(function() {
-        return Math.random() - 0.5;
-      });
-      renderPuzzle(shuffled);
-      lumiMessage.textContent = "Toca dos piezas para intercambiarlas.";
     });
 
-    renderPuzzle(puzzleColors.slice().sort(function() {
-      return Math.random() - 0.5;
-    }));
-
-    const breathBtn = document.getElementById("breathBtn");
-    const breathCircle = document.getElementById("breathCircle");
-    const breathWord = document.getElementById("breathWord");
-    const breathStep = document.getElementById("breathStep");
-    let breathRunning = false;
-
-    const breathSteps = [
-      ["Inhala", "Toma aire suave por la nariz.", true, 3200],
-      ["Sosten", "Mantente tranquilo un momento.", true, 1800],
-      ["Suelta", "Bota el aire despacito.", false, 3200]
-    ];
-
-    async function runBreath() {
-      if (breathRunning) return;
-      breathRunning = true;
-      breathBtn.textContent = "Guiando...";
-
-      for (let cycle = 0; cycle < 3; cycle += 1) {
-        for (const step of breathSteps) {
-          breathWord.textContent = step[0];
-          breathStep.textContent = step[1];
-          breathCircle.classList.toggle("grow", step[2]);
-          await new Promise(function(resolve) {
-            setTimeout(resolve, step[3]);
-          });
-        }
+    document.getElementById("petArBtn").addEventListener("click", function() {
+      if (petViewer && petViewer.activateAR) {
+        petViewer.activateAR();
+        petStatus.textContent = currentPetName + " esta entrando a tu espacio.";
+      } else {
+        petStatus.textContent = "La mascota todavia esta cargando.";
       }
-
-      breathWord.textContent = "Listo";
-      breathStep.textContent = "Muy bien. DANI y LUMI te acompanan.";
-      breathCircle.classList.remove("grow");
-      breathBtn.textContent = "Empezar";
-      breathRunning = false;
-    }
-
-    breathBtn.addEventListener("click", runBreath);
-
-    const stickers = [
-      "Valiente paciente",
-      "Explorador Pediatrics",
-      "Super sonrisa",
-      "Mision consulta",
-      "DANI me acompano"
-    ];
-    let stickerIndex = 0;
-    const sticker = document.getElementById("sticker");
-    const cameraSticker = document.getElementById("cameraSticker");
-    document.getElementById("changeSticker").addEventListener("click", function() {
-      stickerIndex = (stickerIndex + 1) % stickers.length;
-      sticker.textContent = stickers[stickerIndex];
-      cameraSticker.textContent = stickers[stickerIndex];
-      lumiMessage.textContent = "Ese sticker se ve genial para una foto.";
     });
 
-    const openCameraBtn = document.getElementById("openCamera");
-    const takePhotoBtn = document.getElementById("takePhoto");
-    const recordVideoBtn = document.getElementById("recordVideo");
     const photoVideo = document.getElementById("photoVideo");
     const photoCanvas = document.getElementById("photoCanvas");
     const photoPreview = document.getElementById("photoPreview");
     const cameraEmpty = document.getElementById("cameraEmpty");
-    const cameraOverlay = document.getElementById("cameraOverlay");
     const downloadCapture = document.getElementById("downloadCapture");
     const recordingDot = document.getElementById("recordingDot");
+    const selfieStatus = document.getElementById("selfieStatus");
+    const cameraSticker = document.getElementById("cameraSticker");
     let cameraStream = null;
     let recorder = null;
     let recordedChunks = [];
+    let currentAccessory = "casco";
+
+    document.querySelectorAll(".tool-btn").forEach(function(button) {
+      button.addEventListener("click", function() {
+        currentAccessory = button.dataset.accessory;
+        document.querySelectorAll(".tool-btn").forEach(function(item) {
+          item.classList.toggle("active", item === button);
+        });
+        const label = {
+          casco: "Casco explorador",
+          estetoscopio: "Estetoscopio pediatrico",
+          lentes: "Lentes de DANI",
+          estrella: "Estrella valiente"
+        }[currentAccessory];
+        cameraSticker.textContent = label;
+        selfieStatus.textContent = "Accesorio elegido: " + label + ".";
+      });
+    });
 
     async function openCamera() {
       try {
-        cameraStream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "user" },
-          audio: true
-        });
+        cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true });
         photoVideo.srcObject = cameraStream;
         cameraEmpty.style.display = "none";
         photoPreview.style.display = "none";
         photoCanvas.style.display = "none";
         downloadCapture.style.display = "none";
-        lumiMessage.textContent = "Camara lista. Puedes tomar foto o grabar video.";
+        selfieStatus.textContent = "Camara lista.";
       } catch (error) {
-        lumiMessage.textContent = "No se pudo abrir la camara. En celular usa HTTPS y acepta permisos.";
+        selfieStatus.textContent = "No se pudo abrir la camara. En celular usa HTTPS y acepta permisos.";
         console.log("Error camara:", error);
       }
-    }
-
-    function drawOverlayToCanvas(ctx, width, height) {
-      ctx.fillStyle = "rgba(255,255,255,0.84)";
-      roundRect(ctx, width * 0.08, 14, width * 0.84, 58, 18);
-      ctx.fill();
-      ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = 4;
-      ctx.stroke();
-      ctx.fillStyle = "#007e8c";
-      ctx.font = "bold 28px Segoe UI, Arial";
-      ctx.textAlign = "center";
-      ctx.fillText(cameraSticker.textContent, width / 2, 52);
     }
 
     function roundRect(ctx, x, y, width, height, radius) {
@@ -1540,10 +585,59 @@
       ctx.closePath();
     }
 
+    function drawAccessory(ctx, width, height) {
+      ctx.fillStyle = "rgba(255,255,255,.84)";
+      roundRect(ctx, width * .08, 14, width * .84, 58, 18);
+      ctx.fill();
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      ctx.fillStyle = "#007e8c";
+      ctx.font = "bold 28px Segoe UI, Arial";
+      ctx.textAlign = "center";
+      ctx.fillText(cameraSticker.textContent, width / 2, 52);
+
+      ctx.strokeStyle = "#00a7b5";
+      ctx.lineWidth = Math.max(6, width * .012);
+      ctx.fillStyle = "rgba(0,167,181,.12)";
+      if (currentAccessory === "casco") {
+        ctx.beginPath();
+        ctx.arc(width / 2, height * .27, width * .20, Math.PI, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(width / 2, height * .27, width * .15, Math.PI, Math.PI * 2);
+        ctx.stroke();
+      }
+      if (currentAccessory === "estetoscopio") {
+        ctx.beginPath();
+        ctx.arc(width * .43, height * .28, width * .035, 0, Math.PI * 2);
+        ctx.arc(width * .57, height * .28, width * .035, 0, Math.PI * 2);
+        ctx.moveTo(width * .43, height * .31);
+        ctx.quadraticCurveTo(width * .50, height * .46, width * .57, height * .31);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(width * .50, height * .49, width * .045, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+      }
+      if (currentAccessory === "lentes") {
+        ctx.strokeRect(width * .34, height * .25, width * .13, height * .055);
+        ctx.strokeRect(width * .53, height * .25, width * .13, height * .055);
+        ctx.beginPath();
+        ctx.moveTo(width * .47, height * .278);
+        ctx.lineTo(width * .53, height * .278);
+        ctx.stroke();
+      }
+      if (currentAccessory === "estrella") {
+        ctx.fillStyle = "#ffbf3f";
+        ctx.font = "bold " + Math.floor(width * .18) + "px Segoe UI, Arial";
+        ctx.fillText("★", width * .50, height * .33);
+      }
+    }
+
     async function loadImage(src) {
       return new Promise(function(resolve, reject) {
         const img = new Image();
-        img.crossOrigin = "anonymous";
         img.onload = function() { resolve(img); };
         img.onerror = reject;
         img.src = src;
@@ -1551,32 +645,25 @@
     }
 
     async function takePhoto() {
-      if (!cameraStream) {
-        await openCamera();
-      }
+      if (!cameraStream) await openCamera();
       if (!photoVideo.videoWidth) return;
-
       const width = photoVideo.videoWidth;
       const height = photoVideo.videoHeight;
       photoCanvas.width = width;
       photoCanvas.height = height;
       const ctx = photoCanvas.getContext("2d");
       ctx.drawImage(photoVideo, 0, 0, width, height);
-      drawOverlayToCanvas(ctx, width, height);
-
+      drawAccessory(ctx, width, height);
       try {
-        const daniImg = await loadImage("dani-astronauta-pediatrico.png");
-        const lumiImg = await loadImage("lumi-mascota.png");
-        const daniW = width * 0.28;
-        const daniH = daniW * (daniImg.height / daniImg.width);
-        const lumiW = width * 0.24;
-        const lumiH = lumiW * (lumiImg.height / lumiImg.width);
-        ctx.drawImage(daniImg, 18, height - daniH - 18, daniW, daniH);
-        ctx.drawImage(lumiImg, width - lumiW - 18, height - lumiH - 18, lumiW, lumiH);
+        const dani = await loadImage("dani-astronauta-pediatrico.png");
+        const lumi = await loadImage("lumi-mascota.png");
+        const daniW = width * .28;
+        const lumiW = width * .23;
+        ctx.drawImage(dani, 18, height - daniW * (dani.height / dani.width) - 18, daniW, daniW * (dani.height / dani.width));
+        ctx.drawImage(lumi, width - lumiW - 18, height - lumiW * (lumi.height / lumi.width) - 18, lumiW, lumiW * (lumi.height / lumi.width));
       } catch (error) {
         console.log("No se pudo dibujar sticker:", error);
       }
-
       const dataUrl = photoCanvas.toDataURL("image/png");
       photoPreview.src = dataUrl;
       photoPreview.style.display = "block";
@@ -1584,7 +671,7 @@
       downloadCapture.download = "foto-dani-pediatrics.png";
       downloadCapture.textContent = "Descargar foto";
       downloadCapture.style.display = "flex";
-      lumiMessage.textContent = "Foto lista. Puedes descargarla o tomar otra.";
+      selfieStatus.textContent = "Foto lista.";
     }
 
     function pickMimeType() {
@@ -1599,15 +686,11 @@
         recorder.stop();
         return;
       }
-
-      if (!cameraStream) {
-        await openCamera();
-      }
+      if (!cameraStream) await openCamera();
       if (!cameraStream || !window.MediaRecorder) {
-        lumiMessage.textContent = "Este navegador no permite grabar video aqui. Prueba tomar foto.";
+        selfieStatus.textContent = "Este navegador no permite grabar video aqui. Prueba foto.";
         return;
       }
-
       recordedChunks = [];
       const mimeType = pickMimeType();
       recorder = new MediaRecorder(cameraStream, mimeType ? { mimeType } : undefined);
@@ -1622,21 +705,21 @@
         downloadCapture.textContent = "Descargar video";
         downloadCapture.style.display = "flex";
         recordingDot.classList.remove("active");
-        recordVideoBtn.textContent = "Grabar video";
-        lumiMessage.textContent = "Video listo. Descargalo desde el boton verde.";
+        document.getElementById("recordVideo").textContent = "Grabar video";
+        selfieStatus.textContent = "Video listo.";
       };
       recorder.start();
       recordingDot.classList.add("active");
-      recordVideoBtn.textContent = "Detener";
-      lumiMessage.textContent = "Grabando video corto con DANI y LUMI.";
+      document.getElementById("recordVideo").textContent = "Detener";
+      selfieStatus.textContent = "Grabando video corto.";
       setTimeout(function() {
         if (recorder && recorder.state === "recording") recorder.stop();
       }, 12000);
     }
 
-    openCameraBtn.addEventListener("click", openCamera);
-    takePhotoBtn.addEventListener("click", takePhoto);
-    recordVideoBtn.addEventListener("click", toggleRecording);
+    document.getElementById("openCamera").addEventListener("click", openCamera);
+    document.getElementById("takePhoto").addEventListener("click", takePhoto);
+    document.getElementById("recordVideo").addEventListener("click", toggleRecording);
   </script>
 </body>
 </html>
