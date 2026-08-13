@@ -3,186 +3,348 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pediatrics Home Peru - Realidad Aumentada</title>
+  <title>Pediatrics Home Peru - DANI AR</title>
 
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --teal: #00a7b5;
+      --teal-dark: #007e8c;
+      --cyan: #dffbff;
+      --pink: #f26aa8;
+      --blue: #2aa7df;
+      --purple: #8266d8;
+      --ink: #16313a;
+      --muted: #61757c;
+      --card: rgba(255, 255, 255, 0.9);
+    }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f7f6;
+      min-height: 100vh;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at 18% 10%, rgba(242, 106, 168, 0.20), transparent 28%),
+        radial-gradient(circle at 82% 12%, rgba(42, 167, 223, 0.22), transparent 30%),
+        linear-gradient(180deg, #f7fdff 0%, #eef8f9 100%);
+      color: var(--ink);
       text-align: center;
-      color: #333;
     }
 
     header {
-      background: #008CBA;
+      padding: 16px 14px 14px;
       color: white;
-      padding: 15px 10px;
+      background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+      box-shadow: 0 3px 14px rgba(0, 126, 140, 0.18);
     }
 
     h1 {
       margin: 0;
-      font-size: 20px;
+      font-size: 21px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 13px;
+      font-weight: 650;
+      opacity: 0.94;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 12px;
+      align-items: center;
+      max-width: 720px;
+      margin: 14px auto 0;
+      padding: 0 15px;
+      text-align: left;
+    }
+
+    .intro img {
+      width: 76px;
+      height: 76px;
+      object-fit: cover;
+      border: 3px solid white;
+      border-radius: 18px;
+      box-shadow: 0 8px 22px rgba(0, 126, 140, 0.18);
+    }
+
+    .intro strong {
+      display: block;
+      color: var(--teal-dark);
+      font-size: 17px;
+      line-height: 1.15;
+    }
+
+    .intro span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
     }
 
     .viewer-box {
       position: relative;
+      max-width: 760px;
+      margin: 0 auto;
       padding: 15px;
     }
 
     model-viewer {
       width: 100%;
-      height: 480px;
-      background: #eef2f5;
-      border-radius: 15px;
+      height: min(68vh, 540px);
+      min-height: 460px;
       overflow: hidden;
+      border: 1px solid rgba(0, 126, 140, 0.18);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at center 38%, rgba(255, 255, 255, 0.95), rgba(223, 251, 255, 0.74) 42%, rgba(219, 238, 242, 0.95) 100%);
+      box-shadow: 0 16px 38px rgba(22, 49, 58, 0.13);
+    }
+
+    .brand-panel {
+      position: absolute;
+      left: 28px;
+      top: 28px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border: 1px solid rgba(0, 167, 181, 0.24);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 8px 20px rgba(22, 49, 58, 0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: var(--teal-dark);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: conic-gradient(var(--teal), var(--pink), var(--blue), var(--purple), var(--teal));
     }
 
     .ar-card {
-      width: 175px;
-      padding: 10px 12px;
-      border: 2px solid rgba(0, 140, 186, 0.85);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.88);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      width: 190px;
+      padding: 11px 12px;
+      border: 2px solid rgba(0, 167, 181, 0.82);
+      border-radius: 16px;
+      background: var(--card);
+      box-shadow: 0 12px 28px rgba(0, 75, 88, 0.22);
       text-align: center;
       transform: translate(-50%, -50%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .ar-card img {
-      width: 86px;
+      width: 82px;
+      max-width: 100%;
+      height: auto;
       display: block;
-      margin: 0 auto 6px;
-      border-radius: 6px;
+      margin: 0 auto 7px;
+      border-radius: 8px;
+    }
+
+    .logo-fallback {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 7px;
+      display: none;
+      place-items: center;
+      border-radius: 16px;
+      background: conic-gradient(var(--teal), var(--pink), var(--blue), var(--purple), var(--teal));
+      color: white;
+      font-size: 16px;
+      font-weight: 950;
     }
 
     .text-main {
-      color: #008CBA;
-      font-size: 14px;
-      font-weight: 800;
+      color: var(--teal-dark);
+      font-size: 15px;
+      font-weight: 900;
+      line-height: 1.12;
       margin-bottom: 6px;
     }
 
     .text-sub {
-      color: #d9534f;
+      color: #c83a69;
       font-size: 12px;
-      font-weight: 800;
-      background: #fff0f0;
-      padding: 6px;
-      border-radius: 8px;
-      border: 1px dashed #d9534f;
+      font-weight: 850;
+      line-height: 1.2;
+      background: rgba(255, 240, 246, 0.94);
+      padding: 7px;
+      border: 1px dashed rgba(200, 58, 105, 0.72);
+      border-radius: 10px;
+    }
+
+    .audio-btn,
+    .ar-button,
+    .ghost-btn {
+      border: none;
+      cursor: pointer;
+      font-weight: 900;
     }
 
     .audio-btn {
-      background: #ff9800;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      padding: 8px 12px;
-      font-size: 12px;
-      font-weight: bold;
       margin-top: 8px;
-      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #ff9f1c;
+      color: white;
+      font-size: 12px;
+      box-shadow: 0 4px 12px rgba(255, 159, 28, 0.25);
     }
 
     .ar-button {
       position: absolute;
       left: 50%;
-      bottom: 38px;
-      transform: translateX(-50%);
+      bottom: 34px;
       z-index: 20;
-      background: #25D366;
+      transform: translateX(-50%);
+      min-width: 250px;
+      padding: 15px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #12b981, #00a7b5);
       color: white;
-      border: none;
-      border-radius: 30px;
-      padding: 14px 24px;
       font-size: 15px;
-      font-weight: bold;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(0, 167, 181, 0.32);
       white-space: nowrap;
     }
 
-    .audio-status {
-      margin: 8px 15px 0;
-      color: #555;
-      font-size: 13px;
-      min-height: 18px;
-    }
-
-    .test-audio {
-      margin: 10px 15px;
+    .ghost-btn {
+      margin-top: 10px;
       padding: 10px 14px;
-      border: none;
-      border-radius: 20px;
-      background: #008CBA;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
+      border: 1px solid rgba(0, 126, 140, 0.22);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--teal-dark);
+      font-size: 13px;
     }
 
-    /* Queda casi invisible, pero cargado como video real */
+    .audio-status {
+      min-height: 20px;
+      margin: 8px 15px 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
     #mediaBienvenida {
       position: fixed;
+      left: 0;
+      bottom: 0;
       width: 1px;
       height: 1px;
       opacity: 0.01;
       pointer-events: none;
-      left: 0;
-      bottom: 0;
+    }
+
+    @media (max-width: 520px) {
+      .intro {
+        grid-template-columns: 64px 1fr;
+      }
+
+      .intro img {
+        width: 64px;
+        height: 64px;
+        border-radius: 15px;
+      }
+
+      model-viewer {
+        min-height: 500px;
+      }
+
+      .brand-panel {
+        left: 24px;
+        top: 24px;
+      }
+
+      .ar-card {
+        width: 170px;
+      }
+
+      .ar-button {
+        min-width: calc(100% - 58px);
+        padding-inline: 14px;
+      }
     }
   </style>
 </head>
 
 <body>
   <header>
-    <h1>Pediatrics Home Peru 🩺</h1>
-    <p style="margin:5px 0 0; font-size:13px;">Guía Espacial de Llegada</p>
+    <h1>Pediatrics Home Peru</h1>
+    <p>DANI, tu explorador pediatrico de llegada</p>
   </header>
 
-  <!-- IMPORTANTE: como tu archivo es MP4, lo usamos como video -->
+  <section class="intro" aria-label="Presentacion de DANI">
+    <img src="dani-astronauta-pediatrico.png" alt="DANI explorador pediatrico">
+    <div>
+      <strong>Hola, soy DANI.</strong>
+      <span>Te ayudo a ubicar Pediatrics Home Peru y llegar tranquilo al consultorio.</span>
+    </div>
+  </section>
+
   <video id="mediaBienvenida" src="bienvenida.mp4" preload="auto" playsinline></video>
 
-  <button id="testAudioBtn" class="test-audio" type="button">
-    🔊 PROBAR AUDIO
-  </button>
-
   <div class="viewer-box">
+    <div class="brand-panel" aria-hidden="true">
+      <span class="brand-dot"></span>
+      DANI AR
+    </div>
+
     <model-viewer
       id="modelViewer"
       src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-      alt="Astronauta Pediatrics Home Peru"
+      alt="DANI explorador pediatrico en realidad aumentada"
       ar
       ar-modes="webxr scene-viewer quick-look"
       camera-controls
       auto-rotate
       shadow-intensity="1"
-      camera-orbit="25deg 75deg 3.1m"
-      field-of-view="30deg">
+      exposure="1"
+      camera-orbit="28deg 74deg 3.1m"
+      field-of-view="30deg"
+      scale="1.18 1.18 1.18">
 
       <div
         slot="hotspot-cartel"
         class="ar-card"
-        data-position="1.35 1.25 0"
+        data-position="1.22 1.35 0"
         data-normal="0 0 1">
 
-        <img src="logo.jpeg" alt="Pediatrics Home Peru Logo">
-
-        <div class="text-main">Pediatrics Home Peru</div>
-        <div class="text-sub">👈 ¡Tocar Intercomunicador 102!</div>
+        <img id="logoImg" src="logo.jpeg" alt="Logo Pediatrics Home Peru">
+        <div id="logoFallback" class="logo-fallback" aria-hidden="true">PH</div>
+        <div class="text-main">Pediatrics<br>Home Peru</div>
+        <div class="text-sub">Tocar intercomunicador 102</div>
 
         <button id="audioBtn" class="audio-btn" type="button">
-          🔊 Escuchar Mensaje
+          Escuchar a DANI
         </button>
       </div>
     </model-viewer>
 
     <button id="arBtn" class="ar-button" type="button">
-      📱 VER EN MI ESPACIO (AR)
+      VER A DANI EN MI ESPACIO
+    </button>
+
+    <button id="testAudioBtn" class="ghost-btn" type="button">
+      Probar audio
     </button>
 
     <p id="audioStatus" class="audio-status"></p>
@@ -195,6 +357,13 @@
     const audioBtn = document.getElementById("audioBtn");
     const testAudioBtn = document.getElementById("testAudioBtn");
     const audioStatus = document.getElementById("audioStatus");
+    const logoImg = document.getElementById("logoImg");
+    const logoFallback = document.getElementById("logoFallback");
+
+    logoImg.addEventListener("error", function() {
+      logoImg.style.display = "none";
+      logoFallback.style.display = "grid";
+    });
 
     async function reproducirAudio() {
       try {
@@ -205,10 +374,10 @@
 
         await media.play();
 
-        audioStatus.textContent = "Audio reproduciéndose...";
+        audioStatus.textContent = "DANI esta hablando...";
         return true;
       } catch (error) {
-        audioStatus.textContent = "No se pudo reproducir el audio. Revisa el formato del MP4.";
+        audioStatus.textContent = "No se pudo reproducir el audio. Revisa bienvenida.mp4.";
         console.log("Error de audio:", error);
         console.log("Ruta usada:", media.currentSrc);
         return false;
@@ -230,17 +399,21 @@
         if (modelViewer && modelViewer.activateAR) {
           modelViewer.activateAR();
         } else {
-          audioStatus.textContent = "AR todavía no está listo.";
+          audioStatus.textContent = "AR todavia no esta listo. Espera un segundo y vuelve a tocar.";
         }
-      }, 700);
+      }, 650);
     });
 
     media.addEventListener("loadeddata", function() {
-      audioStatus.textContent = "Audio cargado correctamente.";
+      audioStatus.textContent = "Audio listo.";
+    });
+
+    media.addEventListener("ended", function() {
+      audioStatus.textContent = "";
     });
 
     media.addEventListener("error", function() {
-      audioStatus.textContent = "No se encontró o no se pudo leer bienvenida.mp4.";
+      audioStatus.textContent = "No se encontro o no se pudo leer bienvenida.mp4.";
       console.log("Error media:", media.error);
       console.log("Ruta:", media.currentSrc);
     });
